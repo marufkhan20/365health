@@ -1,69 +1,207 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Eyebrow } from "@/components/eyebrow";
+import { LinkButton } from "@/components/link-button";
+import { TempGauge } from "@/components/temp-gauge";
+import { PhotoPanel } from "@/components/photo-panel";
+import { CredentialBand } from "@/components/credential-band";
+import { ClientLogoRow } from "@/components/client-logo-row";
+import { ComplianceBand } from "@/components/compliance-band";
+import {
+  company,
+  deliveryTiers,
+  heroStats,
+  services,
+  testimonial,
+} from "@/lib/content";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-border bg-brand-deep">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(-32deg, #fff 0 2px, transparent 2px 26px)",
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+        <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
+          <Eyebrow tone="inverted">Southern California · Cold Chain 3PL</Eyebrow>
+          <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.98] text-brand-deep-foreground sm:text-6xl lg:text-7xl">
+            {company.tagline}.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-6 max-w-lg text-[17px] text-brand-deep-foreground/75">
+            {company.subhead}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+
+          <div className="mt-9 flex flex-wrap items-center gap-6">
+            <LinkButton
+              href="/services"
+              size="lg"
+              className="bg-thermal text-thermal-foreground hover:bg-thermal/85"
+            >
+              Discover our solutions
+              <ArrowRight className="size-3.5" />
+            </LinkButton>
+            <LinkButton
+              href="/request-a-quote"
+              variant="outline"
+              size="lg"
+              className="border-brand-deep-foreground/30 bg-transparent text-brand-deep-foreground hover:bg-brand-deep-foreground/10"
+            >
+              Request a quote
+            </LinkButton>
+            <TempGauge
+              className="text-brand-deep-foreground/55"
+              trackClassName="bg-brand-deep-foreground/25 before:bg-brand-deep-foreground/25 after:bg-brand-deep-foreground/25"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          <div className="mt-16 grid grid-cols-3 divide-x divide-brand-deep-foreground/15 border-t border-brand-deep-foreground/15 pt-6 sm:max-w-xl">
+            {heroStats.map((s) => (
+              <div key={s.label} className="px-4 first:pl-0 sm:px-6">
+                <div className="font-mono text-2xl font-medium tabular-nums text-brand-deep-foreground sm:text-3xl">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.06em] text-brand-deep-foreground/60">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Delivery tiers */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <Eyebrow>On-Time Delivery</Eyebrow>
+          <h2 className="mt-4 max-w-lg text-3xl font-semibold sm:text-4xl">
+            Next day, same day, or urgent — your window, our commitment.
+          </h2>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[2px] border border-border bg-border sm:grid-cols-3">
+            {deliveryTiers.map((tier) => (
+              <div key={tier.name} className="bg-card p-6">
+                <div className="font-mono text-xs uppercase tracking-[0.06em] text-thermal">
+                  {tier.window}
+                </div>
+                <div className="mt-2 font-display text-xl font-semibold">{tier.name}</div>
+                <p className="mt-2 text-sm text-muted-foreground">{tier.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Warehouse + Products split */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <div className="grid gap-14 sm:grid-cols-2">
+            <div>
+              <Eyebrow>Secure Storage Capacity</Eyebrow>
+              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">Warehousing</h2>
+              <p className="mt-4 text-[15px] text-muted-foreground">
+                Our Southern California warehouse efficiently stores regular and
+                temperature-controlled biopharma products, with up-to-date inventory
+                counts. One convenient location streamlines storage and delivery —
+                no need for multiple intermediaries.
+              </p>
+              <PhotoPanel label="Cold storage warehouse — Chatsworth, CA" className="mt-6" ratio="16/10" />
+              <Link
+                href="/warehouse"
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand hover:underline"
+              >
+                Warehouse & fulfillment <ArrowRight className="size-3.5" />
+              </Link>
+            </div>
+            <div>
+              <Eyebrow>Products and Solutions</Eyebrow>
+              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
+                Thermal packaging, engineered
+              </h2>
+              <p className="mt-4 text-[15px] text-muted-foreground">
+                A diverse range of meticulously engineered thermal packaging
+                solutions, tailored for the pharmaceutical and biotech industries —
+                built to meet the rigorous demands of temperature-sensitive items.
+              </p>
+              <PhotoPanel label="CCT Rx™ thermal shippers" className="mt-6" ratio="16/10" />
+              <Link
+                href="/product-solutions"
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand hover:underline"
+              >
+                Product solutions <ArrowRight className="size-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who we are + services */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <Eyebrow>Who We Are</Eyebrow>
+          <h2 className="mt-4 max-w-xl text-3xl font-semibold sm:text-4xl">
+            Your partners in cold storage medical logistics
+          </h2>
+          <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground">
+            At 365 Health Logistics, we specialize in the cold-storage transportation
+            of pharmaceuticals and medications. With a commitment to safety,
+            reliability, and compliance, we provide end-to-end logistics solutions
+            that protect the integrity of your products every step of the way. Our
+            state-of-the-art technology and trained professionals ensure your
+            medical supplies are handled with the utmost care and precision.
+          </p>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {services.map((s) => (
+              <div key={s.name} className="border-t border-border pt-5">
+                <div className="font-display text-lg font-semibold">{s.name}</div>
+                <p className="mt-2 text-sm text-muted-foreground">{s.copy}</p>
+                <Link
+                  href={s.href}
+                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-brand hover:underline"
+                >
+                  Learn more <ArrowRight className="size-3" />
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14">
+            <CredentialBand />
+          </div>
+        </div>
+      </section>
+
+      {/* Clients + testimonial */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <div className="grid gap-14 sm:grid-cols-[1fr_1.1fr]">
+            <div>
+              <Eyebrow>Our Clients</Eyebrow>
+              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
+                Trusted by professionals
+              </h2>
+              <div className="mt-8">
+                <ClientLogoRow />
+              </div>
+            </div>
+            <div className="border-l border-border pl-8">
+              <Eyebrow>Hear From Our Clients</Eyebrow>
+              <blockquote className="mt-4 text-xl font-medium leading-snug text-foreground sm:text-2xl">
+                &ldquo;{testimonial.quote}&rdquo;
+              </blockquote>
+              <p className="mt-4 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
+                — {testimonial.attribution}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ComplianceBand />
+    </>
   );
 }

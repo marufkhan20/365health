@@ -1,26 +1,167 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --font-heading: var(--font-display);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-deep-foreground: var(--brand-deep-foreground);
+  --color-brand-tint: var(--brand-tint);
+  --color-thermal: var(--thermal);
+  --color-thermal-foreground: var(--thermal-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* --- 365 Health cold-chain palette --- */
+  --background: #F3F5F3;
+  --foreground: #101913;
+  --card: #FFFFFF;
+  --card-foreground: #101913;
+  --popover: #FFFFFF;
+  --popover-foreground: #101913;
+  --primary: #1E6B45;
+  --primary-foreground: #F4FAF6;
+  --secondary: #E3EFE8;
+  --secondary-foreground: #0F3B26;
+  --muted: #E7EAE7;
+  --muted-foreground: #45524B;
+  --accent: #E3EFE8;
+  --accent-foreground: #0F3B26;
+  --destructive: #B23B3B;
+  --border: #D7DDD8;
+  --input: #D7DDD8;
+  --ring: #1E6B45;
+  --chart-1: #1E6B45;
+  --chart-2: #48A374;
+  --chart-3: #C4691F;
+  --chart-4: #75827A;
+  --chart-5: #0F3B26;
+  --radius: 0.25rem;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #101913;
+  --sidebar-primary: #1E6B45;
+  --sidebar-primary-foreground: #F4FAF6;
+  --sidebar-accent: #E3EFE8;
+  --sidebar-accent-foreground: #0F3B26;
+  --sidebar-border: #D7DDD8;
+  --sidebar-ring: #1E6B45;
+
+  /* brand-specific extras, used directly in custom components */
+  --brand: #1E6B45;
+  --brand-deep: #0F3B26;
+  --brand-deep-foreground: #F4FAF6;
+  --brand-tint: #E3EFE8;
+  --thermal: #C4691F;
+  --thermal-foreground: #FBF3EC;
+}
+
+.dark {
+  --background: #0B1310;
+  --foreground: #ECF2EE;
+  --card: #101915;
+  --card-foreground: #ECF2EE;
+  --popover: #101915;
+  --popover-foreground: #ECF2EE;
+  --primary: #48A374;
+  --primary-foreground: #08130D;
+  --secondary: #16261D;
+  --secondary-foreground: #ECF2EE;
+  --muted: #142019;
+  --muted-foreground: #A9B8AE;
+  --accent: #16261D;
+  --accent-foreground: #ECF2EE;
+  --destructive: #E08080;
+  --border: #223028;
+  --input: #223028;
+  --ring: #48A374;
+  --chart-1: #48A374;
+  --chart-2: #1E6B45;
+  --chart-3: #E08A45;
+  --chart-4: #A9B8AE;
+  --chart-5: #16261D;
+  --sidebar: #101915;
+  --sidebar-foreground: #ECF2EE;
+  --sidebar-primary: #48A374;
+  --sidebar-primary-foreground: #08130D;
+  --sidebar-accent: #16261D;
+  --sidebar-accent-foreground: #ECF2EE;
+  --sidebar-border: #223028;
+  --sidebar-ring: #48A374;
+
+  --brand: #48A374;
+  --brand-deep: #0F3B26;
+  --brand-deep-foreground: #F4FAF6;
+  --brand-tint: #16261D;
+  --thermal: #E08A45;
+  --thermal-foreground: #1C1006;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold;
+    text-wrap: balance;
+    letter-spacing: 0.005em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
