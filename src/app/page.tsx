@@ -86,7 +86,7 @@ export default function HomePage() {
             <FadeIn className="sm:pr-10">
               <Eyebrow tone="inverted">On-Time Delivery</Eyebrow>
               <div className="mt-5 flex flex-col gap-4">
-                {deliveryTiers.map((tier) => (
+                {deliveryTiers.slice(0, 3).map((tier) => (
                   <div key={tier.name}>
                     <div className="font-display text-lg font-semibold text-brand-deep-foreground">
                       {tier.name}

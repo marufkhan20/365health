@@ -91,7 +91,16 @@ export const deliveryTiers = [
     window: "≤ 4 Hours",
     detail: "Pickup and delivery are guaranteed within 4 hours in most areas.",
   },
+  {
+    name: "Inside Delivery",
+    window: "White Glove",
+    detail:
+      "We go the extra mile by delivering your products directly inside, ensuring they're never left on your doorstep.",
+  },
 ] as const;
+
+export const deliveryIntro =
+  "At 365, we take pride in our reliable, on-time deliveries, supported by a skilled team of drivers and dispatchers. Our versatile fleet, including small units, sprinters, and box trucks, is equipped to handle all your delivery needs. With an impeccable track record of on-time deliveries and zero claims, you can trust 365 Logistics to get your shipments where they need to go, on time, every time.";
 
 export const deliveryOptions = [
   { name: "ID + Signature", detail: "ID and signature mandatory" },
@@ -100,26 +109,29 @@ export const deliveryOptions = [
   { name: "Contactless", detail: "Contactless delivery" },
 ] as const;
 
+export const warehouseIntro =
+  "Not your ordinary 3PL company, we also boast a coveted wholesale license with the California Board of Pharmacy, positioning us as your ultimate one-stop-shop for all your pharmaceutical business needs, from product management to fulfillment and warehousing.";
+
 export const warehouseCapabilities = [
   {
-    name: "Returns Processing",
-    copy: "We handle returns with the same urgency as outbound fulfillment — SOPs cover product identification, relabeling, and repackaging under trained QA standards.",
+    name: "Revolutionizing Returns Processing",
+    copy: "Recognizing a void in the industry, we handle returns with the same level of urgency as outbound order fulfillment. Our meticulous SOPs streamline product identification, relabeling, and repackaging, while our dedicated associates undergo specialized training to uphold stringent quality standards.",
   },
   {
-    name: "Brand Customization",
-    copy: "Custom packouts and packaging that add a unique touch, so your product stands apart from the competition.",
+    name: "Elevating Your Brand with Customization",
+    copy: "Stand out from the competition with our customized solutions that add that extra flair to your products. From custom packouts to innovative packaging, we excel in adding unique touches that set your brand apart.",
   },
   {
-    name: "Kitting & Assembly",
-    copy: "Streamlined operations for seamless kitting and assembly — bundles and kits that showcase your offering.",
+    name: "Efficient Kitting and Assembly",
+    copy: "Our streamlined operations are designed for seamless kitting and assembly tasks. Let us assist in creating enticing bundles or kits that showcase your offerings and enhance customer appeal.",
   },
   {
-    name: "Inventory Management",
-    copy: "Meticulous, accurate management of diverse product lines with unwavering attention to detail.",
+    name: "Precise Inventory Management",
+    copy: "Rest easy as we meticulously handle your product inventory, ensuring accurate management of diverse product lines with unwavering attention to detail.",
   },
   {
-    name: "Multi-Site Fulfillment",
-    copy: "Multiple fulfillment sites elevate the customer experience and enhance operations at every touchpoint.",
+    name: "Optimized Fulfillment Experience",
+    copy: "With multiple fulfillment sites, we are dedicated to elevating your customer experience and enhancing your business operations at every touchpoint. Trust us to drive success for your brand with our comprehensive solutions tailored to meet your unique needs.",
   },
 ] as const;
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { PhotoPanel } from "@/components/photo-panel";
-import { ComplianceBand } from "@/components/compliance-band";
-import { warehouseCapabilities } from "@/lib/content";
+import Image from "next/image";
+import { AdvancedTechSection } from "@/components/advanced-tech-section";
+import { FadeIn } from "@/components/fade-in";
+import { warehouseCapabilities, warehouseIntro } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Warehouse & Fulfilment",
@@ -13,46 +13,77 @@ export const metadata: Metadata = {
 export default function WarehousePage() {
   return (
     <>
-      <PageHero
-        eyebrow="Warehouse and Fulfilment"
-        title="We're your all-in-one pharma solution."
-        subtitle="Not your ordinary 3PL — we also hold a coveted wholesale license with the California Board of Pharmacy, positioning us as a one-stop shop for product management, fulfillment, and warehousing."
-        crumb="Warehouse"
-      />
+      <section className="relative w-full overflow-hidden border-b border-border aspect-[1914/497]">
+        <Image
+          src="/images/warehouse-hero.jpg"
+          alt="365 Health Logistics warehouse racking"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </section>
 
       <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <div className="grid gap-12 sm:grid-cols-[1fr_1fr] sm:items-start">
-            <div className="flex flex-col gap-8">
-              {warehouseCapabilities.map((cap) => (
-                <div key={cap.name} className="border-t border-border pt-5">
-                  <div className="font-display text-lg font-semibold">{cap.name}</div>
-                  <p className="mt-2 text-sm text-muted-foreground">{cap.copy}</p>
-                </div>
-              ))}
-            </div>
-            <div className="grid gap-6">
-              <PhotoPanel label="150,000+ sq ft — Southern California" ratio="4/3" />
-              <PhotoPanel label="Kitting & assembly floor" ratio="4/3" />
-            </div>
-          </div>
+        <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+          <FadeIn>
+            <h1 className="text-center font-display text-3xl font-semibold sm:text-4xl">
+              Warehouse and Fulfilment
+            </h1>
+            <p className="mt-6 text-[15px] font-semibold text-foreground">
+              We&rsquo;re Your All-in-One Pharma Solution.
+            </p>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              {warehouseIntro}
+            </p>
+          </FadeIn>
 
-          <div className="mt-16 border-t border-border pt-10">
-            <div className="font-mono text-xs uppercase tracking-[0.06em] text-brand">
+          <FadeIn delay={0.1} className="mt-8 flex flex-col gap-5">
+            {warehouseCapabilities.map((cap) => (
+              <p key={cap.name} className="text-[15px] leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">{cap.name}:</span>{" "}
+                {cap.copy}
+              </p>
+            ))}
+          </FadeIn>
+
+          <FadeIn delay={0.15} className="mt-14">
+            <div className="h-px w-10 bg-brand" />
+            <div className="mt-4 font-mono text-xs uppercase tracking-[0.06em] text-brand">
               Importance of Proper Pharmaceutical Storage
             </div>
-            <p className="mt-4 max-w-3xl text-[15px] text-muted-foreground">
-              Storage requirements and manufacturer guidance are not uniform across
-              medications — some require refrigeration or freezing, while others are
-              stable at room temperature. Monitoring temperature and using proper
-              pharmaceutical storage keeps medications potent, intact, and safe
-              throughout their shelf life.
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              As a direct consequence of this, the requirements for storing
+              different medications and the advice given by their manufacturers
+              are not uniform. There are some that have to be kept at a cold
+              temperature, such as the refrigerator or the freezer, while others
+              may be kept at room temperature. Here are the reasons why
+              it&rsquo;s so vital to monitor temperature and why it&rsquo;s so
+              important to use the proper pharmaceutical storage keep
+              medications in the proper manner.
             </p>
-          </div>
+          </FadeIn>
+
+          <FadeIn
+            delay={0.2}
+            className="relative mt-10 aspect-[4/3] overflow-hidden rounded-[2px] border border-border"
+          >
+            <Image
+              src="/images/warehouse-2.jpg"
+              alt="Cold storage racking aisle"
+              fill
+              sizes="(min-width: 768px) 768px, 100vw"
+              className="object-cover"
+            />
+          </FadeIn>
         </div>
       </section>
 
-      <ComplianceBand />
+      <AdvancedTechSection
+        image="/images/warehouse-3.png"
+        imageAlt="Air freight and ground fleet supporting 365 Health's warehouse network"
+        bordered={false}
+      />
     </>
   );
 }
