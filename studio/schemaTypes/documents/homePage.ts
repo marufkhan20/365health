@@ -93,11 +93,10 @@ export const homePage = defineType({
     defineField({
       name: "testimonialQuoteParts",
       title: "Quote (as separate message cards)",
-      description: "The design shows this as two stacked message-style cards, so keep each part to one or two sentences.",
+      description: "Each part renders as its own stacked message-style card, so keep each one to one or two sentences.",
       type: "array",
       group: "testimonial",
       of: [defineArrayMember({ type: "text", rows: 2 })],
-      validation: (r) => r.max(2),
     }),
     defineField({ name: "testimonialAttribution", title: "Attribution", type: "string", group: "testimonial" }),
   ],
