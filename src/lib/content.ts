@@ -19,12 +19,18 @@ export const company = {
 } as const;
 
 export const navItems = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Delivery", href: "/delivery" },
-  { label: "Warehouse", href: "/warehouse" },
-  { label: "Product Solutions", href: "/product-solutions" },
-  { label: "Gel Packs", href: "/flexible-hot-cold-gel-packs" },
+  {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "Delivery", href: "/delivery" },
+      { label: "Warehouse", href: "/warehouse" },
+      { label: "Products and Solutions", href: "/product-solutions" },
+      { label: "Flexible Hot/Cold Gel Packs", href: "/flexible-hot-cold-gel-packs" },
+    ],
+  },
   { label: "Contact", href: "/contact" },
 ] as const;
 
