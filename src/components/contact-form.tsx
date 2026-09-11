@@ -14,7 +14,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" size="lg" disabled={pending} className="w-full">
-      {pending ? "Sending…" : "Send message"}
+      {pending ? "Sending…" : "Submit"}
     </Button>
   );
 }
@@ -32,7 +32,7 @@ export function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-5">
       <input
         type="text"
         name="company_website"
@@ -43,35 +43,31 @@ export function ContactForm() {
       />
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="contact-name">Name</FieldLabel>
-          <Input id="contact-name" name="name" placeholder="Jane Rivera" required />
+          <FieldLabel htmlFor="contact-name" className="sr-only">
+            Name
+          </FieldLabel>
+          <Input id="contact-name" name="name" placeholder="Name" required />
           <FieldError>{state.errors?.name}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="contact-email">Email</FieldLabel>
-          <Input
-            id="contact-email"
-            name="email"
-            type="email"
-            placeholder="jane@company.com"
-            required
-          />
+          <FieldLabel htmlFor="contact-email" className="sr-only">
+            Email
+          </FieldLabel>
+          <Input id="contact-email" name="email" type="email" placeholder="Email" required />
           <FieldError>{state.errors?.email}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="contact-mobile">Mobile</FieldLabel>
-          <Input id="contact-mobile" name="mobile" type="tel" placeholder="(555) 010-0199" required />
+          <FieldLabel htmlFor="contact-mobile" className="sr-only">
+            Mobile Number
+          </FieldLabel>
+          <Input id="contact-mobile" name="mobile" type="tel" placeholder="Mobile Number" required />
           <FieldError>{state.errors?.mobile}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="contact-message">Message</FieldLabel>
-          <Textarea
-            id="contact-message"
-            name="message"
-            rows={5}
-            placeholder="Tell us about your cold-chain shipment or storage needs…"
-            required
-          />
+          <FieldLabel htmlFor="contact-message" className="sr-only">
+            Message
+          </FieldLabel>
+          <Textarea id="contact-message" name="message" rows={5} placeholder="Message" required />
           <FieldError>{state.errors?.message}</FieldError>
         </Field>
       </FieldGroup>
