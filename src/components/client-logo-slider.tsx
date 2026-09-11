@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { clients } from "@/lib/content";
+
+export type ClientLogo = { name: string; logo: string };
 
 /**
  * Continuous CSS marquee — the track is the client list rendered twice
@@ -7,7 +8,7 @@ import { clients } from "@/lib/content";
  * is seamless. Pauses on hover and honors prefers-reduced-motion (see
  * globals.css).
  */
-export function ClientLogoSlider() {
+export function ClientLogoSlider({ clients }: { clients: ClientLogo[] }) {
   const track = [...clients, ...clients];
 
   return (

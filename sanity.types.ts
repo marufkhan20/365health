@@ -360,6 +360,12 @@ export type HomePage = {
   >;
   primaryCtaLabel?: string;
   secondaryCtaLabel?: string;
+  deliveryHeading?: string;
+  featuredDeliveryTiers?: Array<
+    {
+      _key: string;
+    } & DeliveryTierReference
+  >;
   storageHeading?: string;
   storageCopy?: string;
   productsHeading?: string;
@@ -639,3 +645,478 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint
   | Slug;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_id == "siteSettings" && _type == "siteSettings"][0]
+export type SITE_SETTINGS_QUERY_RESULT = {
+  _id: "siteSettings";
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  shortName?: string;
+  tagline?: string;
+  subhead?: string;
+  phone?: string;
+  phoneHref?: string;
+  email?: string;
+  address?: {
+    line1?: string;
+    line2?: string;
+  };
+  social?: {
+    facebook?: string;
+    x?: string;
+    instagram?: string;
+  };
+  navItems?: Array<
+    {
+      _key: string;
+    } & NavLink
+  >;
+  footerNavItems?: Array<
+    {
+      _key: string;
+    } & NavChildLink
+  >;
+  credentials?: Array<
+    {
+      _key: string;
+    } & CredentialItem
+  >;
+  complianceBand?: {
+    eyebrow?: string;
+    heading?: string;
+    copy?: string;
+  };
+  getInTouch?: {
+    eyebrow?: string;
+    heading?: string;
+    copy?: string;
+    formHeading?: string;
+  };
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: HOME_PAGE_QUERY
+// Query: *[_id == "homePage" && _type == "homePage"][0]{    ...,    featuredDeliveryTiers[]->  }
+export type HOME_PAGE_QUERY_RESULT = {
+  _id: "homePage";
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  heroStats?: Array<
+    {
+      _key: string;
+    } & StatItem
+  >;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
+  deliveryHeading?: string;
+  featuredDeliveryTiers: Array<{
+    _id: string;
+    _type: "deliveryTier";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    window?: string;
+    detail?: string;
+    order?: number;
+  }> | null;
+  storageHeading?: string;
+  storageCopy?: string;
+  productsHeading?: string;
+  productsCopy?: string;
+  whoWeAreHeading?: string;
+  whoWeAreCopy?: string;
+  whoWeAreImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  offerHeading?: string;
+  offerCopy?: string;
+  offerItems?: Array<{
+    name?: string;
+    copy?: string;
+    icon?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    href?: string;
+    _type: "offerItem";
+    _key: string;
+  }>;
+  clientsHeading?: string;
+  clients?: Array<
+    {
+      _key: string;
+    } & ClientLogo
+  >;
+  advancedTechImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  testimonialIntro?: string;
+  testimonialQuoteParts?: Array<string>;
+  testimonialAttribution?: string;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: ABOUT_PAGE_QUERY
+// Query: *[_id == "aboutPage" && _type == "aboutPage"][0]
+export type ABOUT_PAGE_QUERY_RESULT = {
+  _id: "aboutPage";
+  _type: "aboutPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  mission?: string;
+  vision?: string;
+  advancedTechImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: SERVICES_PAGE_QUERY
+// Query: *[_id == "servicesPage" && _type == "servicesPage"][0]
+export type SERVICES_PAGE_QUERY_RESULT = {
+  _id: "servicesPage";
+  _type: "servicesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  stats?: Array<
+    {
+      _key: string;
+    } & StatItem
+  >;
+  categoriesHeading?: string;
+  categories?: Array<{
+    name?: string;
+    href?: string;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "serviceCategory";
+    _key: string;
+  }>;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: DELIVERY_PAGE_QUERY
+// Query: *[_id == "deliveryPage" && _type == "deliveryPage"][0]{    ...,    deliveryTiers[]->  }
+export type DELIVERY_PAGE_QUERY_RESULT = {
+  _id: "deliveryPage";
+  _type: "deliveryPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  introHeading?: string;
+  introCopy?: string;
+  whiteGloveHeading?: string;
+  whiteGloveCopy?: string;
+  deliveryTiers: Array<{
+    _id: string;
+    _type: "deliveryTier";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    window?: string;
+    detail?: string;
+    order?: number;
+  }> | null;
+  optionsHeading?: string;
+  deliveryOptions?: Array<{
+    name?: string;
+    detail?: string;
+    _type: "deliveryOption";
+    _key: string;
+  }>;
+  closingCopy?: string;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: WAREHOUSE_PAGE_QUERY
+// Query: *[_id == "warehousePage" && _type == "warehousePage"][0]
+export type WAREHOUSE_PAGE_QUERY_RESULT = {
+  _id: "warehousePage";
+  _type: "warehousePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  introLead?: string;
+  introCopy?: string;
+  capabilities?: Array<{
+    name?: string;
+    copy?: string;
+    _type: "capability";
+    _key: string;
+  }>;
+  storageHeading?: string;
+  storageCopy?: string;
+  storageImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  advancedTechImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: PRODUCT_SOLUTIONS_PAGE_QUERY
+// Query: *[_id == "productSolutionsPage" && _type == "productSolutionsPage"][0]
+export type PRODUCT_SOLUTIONS_PAGE_QUERY_RESULT = {
+  _id: "productSolutionsPage";
+  _type: "productSolutionsPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  introCopy?: string;
+  cctRxHeading?: string;
+  cctRxCopy?: string;
+  cctRxSlides?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  categories?: Array<{
+    name?: string;
+    copy?: string;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "productCategory";
+    _key: string;
+  }>;
+  whyStorageEyebrow?: string;
+  whyStorageHeading?: string;
+  whyStorageBullets?: Array<string>;
+  whyStorageCopy?: string;
+  whyProfessionals?: Array<{
+    title?: string;
+    copy?: string;
+    _type: "advantage";
+    _key: string;
+  }>;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: GEL_PACKS_PAGE_QUERY
+// Query: *[_id == "gelPacksPage" && _type == "gelPacksPage"][0]
+export type GEL_PACKS_PAGE_QUERY_RESULT = {
+  _id: "gelPacksPage";
+  _type: "gelPacksPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  note?: string;
+  wholesaleEyebrow?: string;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: GEL_PACK_PRODUCTS_QUERY
+// Query: *[_type == "gelPackProduct"] | order(order asc)
+export type GEL_PACK_PRODUCTS_QUERY_RESULT = Array<{
+  _id: string;
+  _type: "gelPackProduct";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sku?: string;
+  name?: string;
+  size?: "Large" | "Medium" | "Small";
+  label?: string;
+  dimensions?: string;
+  weight?: string;
+  features?: Array<string>;
+  images?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  order?: number;
+}>;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: CONTACT_PAGE_QUERY
+// Query: *[_id == "contactPage" && _type == "contactPage"][0]
+export type CONTACT_PAGE_QUERY_RESULT = {
+  _id: "contactPage";
+  _type: "contactPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  formHeading?: string;
+} | null;
+
+// Source: ../src/sanity/lib/queries.ts
+// Variable: REQUEST_QUOTE_PAGE_QUERY
+// Query: *[_id == "requestQuotePage" && _type == "requestQuotePage"][0]
+export type REQUEST_QUOTE_PAGE_QUERY_RESULT = {
+  _id: "requestQuotePage";
+  _type: "requestQuotePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  title?: string;
+  formHeading?: string;
+  serviceOptions?: Array<string>;
+  advancedTechImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+} | null;
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_id == "siteSettings" && _type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT;
+    '*[_id == "homePage" && _type == "homePage"][0]{\n    ...,\n    featuredDeliveryTiers[]->\n  }': HOME_PAGE_QUERY_RESULT;
+    '*[_id == "aboutPage" && _type == "aboutPage"][0]': ABOUT_PAGE_QUERY_RESULT;
+    '*[_id == "servicesPage" && _type == "servicesPage"][0]': SERVICES_PAGE_QUERY_RESULT;
+    '*[_id == "deliveryPage" && _type == "deliveryPage"][0]{\n    ...,\n    deliveryTiers[]->\n  }': DELIVERY_PAGE_QUERY_RESULT;
+    '*[_id == "warehousePage" && _type == "warehousePage"][0]': WAREHOUSE_PAGE_QUERY_RESULT;
+    '*[_id == "productSolutionsPage" && _type == "productSolutionsPage"][0]': PRODUCT_SOLUTIONS_PAGE_QUERY_RESULT;
+    '*[_id == "gelPacksPage" && _type == "gelPacksPage"][0]': GEL_PACKS_PAGE_QUERY_RESULT;
+    '*[_type == "gelPackProduct"] | order(order asc)': GEL_PACK_PRODUCTS_QUERY_RESULT;
+    '*[_id == "contactPage" && _type == "contactPage"][0]': CONTACT_PAGE_QUERY_RESULT;
+    '*[_id == "requestQuotePage" && _type == "requestQuotePage"][0]': REQUEST_QUOTE_PAGE_QUERY_RESULT;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

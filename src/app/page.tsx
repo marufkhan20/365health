@@ -6,39 +6,44 @@ import { FadeIn } from "@/components/fade-in";
 import { HeroImage } from "@/components/hero-image";
 import { LinkButton } from "@/components/link-button";
 import { QuickMessageForm } from "@/components/quick-message-form";
-import {
-  company,
-  deliveryTiers,
-  getInTouch,
-  serviceCopy,
-  services,
-  testimonial,
-  testimonialIntro,
-} from "@/lib/content";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import { HOME_PAGE_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import { cn } from "cn";
 import { ArrowRight, User, Warehouse } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // stega: false — Visual Editing isn't wired up yet, and some of this data
+  // (e.g. credential icon keys) flows into logic, not just display.
+  const [{ data: home }, { data: settings }] = await Promise.all([
+    sanityFetch({ query: HOME_PAGE_QUERY, stega: false }),
+    sanityFetch({ query: SITE_SETTINGS_QUERY, stega: false }),
+  ]);
+
+  if (!home || !settings) return null;
+
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-brand-deep">
-        <HeroImage
-          src="/images/home-hero.png"
-          alt="A 365 Health Logistics courier loading temperature-sensitive packages into a delivery van"
-        />
+        {home.heroImage ? (
+          <HeroImage
+            src={urlFor(home.heroImage).width(1920).url()}
+            alt={home.heroImage.alt ?? ""}
+          />
+        ) : null}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-deep/95 via-brand-deep/85 to-brand-deep/45" />
         <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
           <FadeIn mount>
             <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.98] text-brand-deep-foreground sm:text-6xl lg:text-7xl">
-              {company.tagline}.
+              {settings.tagline}.
             </h1>
           </FadeIn>
           <FadeIn mount delay={0.15}>
             <p className="mt-6 max-w-lg text-[17px] text-brand-deep-foreground/75">
-              {company.subhead}
+              {settings.subhead}
             </p>
           </FadeIn>
 
@@ -49,7 +54,7 @@ export default function HomePage() {
                 size="lg"
                 className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/85"
               >
-                Discover our solutions
+                {home.primaryCtaLabel ?? "Discover our solutions"}
                 <ArrowRight className="size-3.5" />
               </LinkButton>
               <LinkButton
@@ -58,7 +63,7 @@ export default function HomePage() {
                 size="lg"
                 className="border-brand-deep-foreground/30 bg-transparent text-brand-deep-foreground hover:bg-brand-deep-foreground/10"
               >
-                Request a quote
+                {home.secondaryCtaLabel ?? "Request a quote"}
               </LinkButton>
             </div>
           </FadeIn>
@@ -70,11 +75,15 @@ export default function HomePage() {
         <FadeIn className="mx-auto max-w-6xl px-6 pt-12 sm:pt-16">
           <Eyebrow>Our Clients</Eyebrow>
           <h2 className="mt-4 max-w-lg text-2xl font-semibold sm:text-3xl">
-            Trusted by professionals
+            {home.clientsHeading}
           </h2>
         </FadeIn>
         <FadeIn delay={0.1} className="mx-auto mt-8 max-w-6xl px-6 pb-12 sm:pb-16">
-          <ClientLogoSlider />
+          <ClientLogoSlider
+            clients={(home.clients ?? [])
+              .filter((c) => c.logo)
+              .map((c) => ({ name: c.name ?? "", logo: urlFor(c.logo!).width(320).url() }))}
+          />
         </FadeIn>
       </section>
 
@@ -84,10 +93,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <div className="grid gap-10 divide-brand-deep-foreground/15 sm:grid-cols-3 sm:gap-0 sm:divide-x">
             <FadeIn className="sm:pr-10">
-              <Eyebrow tone="inverted">On-Time Delivery</Eyebrow>
+              <Eyebrow tone="inverted">{home.deliveryHeading}</Eyebrow>
               <div className="mt-5 flex flex-col gap-4">
-                {deliveryTiers.slice(0, 3).map((tier) => (
-                  <div key={tier.name}>
+                {(home.featuredDeliveryTiers ?? []).map((tier) => (
+                  <div key={tier._id}>
                     <div className="font-display text-lg font-semibold text-brand-deep-foreground">
                       {tier.name}
                     </div>
@@ -100,12 +109,9 @@ export default function HomePage() {
             </FadeIn>
 
             <FadeIn delay={0.1} className="sm:px-10">
-              <Eyebrow tone="inverted">Secure Storage Capacity</Eyebrow>
+              <Eyebrow tone="inverted">{home.storageHeading}</Eyebrow>
               <p className="mt-5 text-[15px] text-brand-deep-foreground/75">
-                Our Southern California warehouse efficiently stores regular and
-                temperature-controlled biopharma products, with up-to-date
-                inventory counts. One convenient location streamlines storage
-                and delivery — no need for multiple intermediaries.
+                {home.storageCopy}
               </p>
               <Link
                 href="/warehouse"
@@ -116,13 +122,9 @@ export default function HomePage() {
             </FadeIn>
 
             <FadeIn delay={0.2} className="sm:pl-10">
-              <Eyebrow tone="inverted">Products and Solutions</Eyebrow>
+              <Eyebrow tone="inverted">{home.productsHeading}</Eyebrow>
               <p className="mt-5 text-[15px] text-brand-deep-foreground/75">
-                Our company offers a diverse range of meticulously engineered
-                thermal packaging solutions tailored specifically for the
-                pharmaceutical and biotech industries. Our products are
-                designed to meet the rigorous demands of temperature-sensitive
-                items.
+                {home.productsCopy}
               </p>
               <Link
                 href="/product-solutions"
@@ -142,34 +144,30 @@ export default function HomePage() {
             <FadeIn>
               <Eyebrow>Who We Are</Eyebrow>
               <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-                Your partners in cold storage medical logistics
+                {home.whoWeAreHeading}
               </h2>
               <p className="mt-5 text-[15px] text-muted-foreground">
-                At 365 Health Logistics, we specialize in the cold-storage
-                transportation of pharmaceuticals and medications. With a
-                commitment to safety, reliability, and compliance, we provide
-                end-to-end logistics solutions that protect the integrity of
-                your products every step of the way. Our state-of-the-art
-                technology and trained professionals ensure your medical
-                supplies are handled with the utmost care and precision.
+                {home.whoWeAreCopy}
               </p>
               <LinkButton href="/services" size="lg" className="mt-7">
                 Discover our solutions
                 <ArrowRight className="size-3.5" />
               </LinkButton>
             </FadeIn>
-            <FadeIn
-              delay={0.15}
-              className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border sm:aspect-square"
-            >
-              <Image
-                src="/images/who-we-are.png"
-                alt="Air freight, trucks, and last-mile vans supporting 365 Health's cold chain network"
-                fill
-                sizes="(min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </FadeIn>
+            {home.whoWeAreImage ? (
+              <FadeIn
+                delay={0.15}
+                className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border sm:aspect-square"
+              >
+                <Image
+                  src={urlFor(home.whoWeAreImage).width(1000).url()}
+                  alt={home.whoWeAreImage.alt ?? ""}
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </FadeIn>
+            ) : null}
           </div>
         </div>
       </section>
@@ -180,20 +178,20 @@ export default function HomePage() {
           <FadeIn>
             <Eyebrow>What We Offer</Eyebrow>
             <h2 className="mt-4 max-w-xl text-3xl font-semibold sm:text-4xl">
-              Comprehensive cold chain logistics services
+              {home.offerHeading}
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground">
-              {serviceCopy}
+              {home.offerCopy}
             </p>
           </FadeIn>
 
           <FadeIn delay={0.1} className="mt-12 grid gap-10 sm:grid-cols-2">
-            {services.slice(0, 2).map((s) => (
-              <div key={s.name} className="border-t border-border pt-5">
+            {(home.offerItems ?? []).map((s) => (
+              <div key={s._key} className="border-t border-border pt-5">
                 <div className="flex size-11 items-center justify-center rounded-[2px] border border-border bg-secondary">
                   {s.icon ? (
                     <Image
-                      src={s.icon}
+                      src={urlFor(s.icon).width(48).url()}
                       alt=""
                       width={24}
                       height={24}
@@ -219,15 +217,17 @@ export default function HomePage() {
           </FadeIn>
 
           <FadeIn delay={0.2} className="mt-14">
-            <CredentialBand />
+            <CredentialBand credentials={settings.credentials} />
           </FadeIn>
         </div>
       </section>
 
-      <AdvancedTechSection
-        image="/images/who-we-are.png"
-        imageAlt="Air freight and ground fleet supporting 365 Health's temperature-monitoring technology"
-      />
+      {home.advancedTechImage ? (
+        <AdvancedTechSection
+          image={urlFor(home.advancedTechImage).width(1200).url()}
+          imageAlt={home.advancedTechImage.alt ?? ""}
+        />
+      ) : null}
 
       {/* Testimonial */}
       <section className="border-b border-border">
@@ -239,11 +239,11 @@ export default function HomePage() {
                 Trusted by professionals
               </h2>
               <p className="mt-5 max-w-sm text-[15px] text-muted-foreground">
-                {testimonialIntro}
+                {home.testimonialIntro}
               </p>
             </FadeIn>
             <FadeIn delay={0.15} className="flex flex-col gap-4">
-              {testimonial.quoteParts.map((part, i) => (
+              {(home.testimonialQuoteParts ?? []).map((part, i) => (
                 <div
                   key={part}
                   className={cn(
@@ -260,7 +260,7 @@ export default function HomePage() {
                 </div>
               ))}
               <p className="mt-1 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
-                — {testimonial.attribution}
+                — {home.testimonialAttribution}
               </p>
             </FadeIn>
           </div>
@@ -272,12 +272,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <div className="grid gap-14 sm:grid-cols-[1fr_1.1fr] sm:gap-16">
             <FadeIn>
-              <Eyebrow>{getInTouch.eyebrow}</Eyebrow>
+              <Eyebrow>{settings.getInTouch?.eyebrow}</Eyebrow>
               <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-                {getInTouch.heading}
+                {settings.getInTouch?.heading}
               </h2>
               <p className="mt-5 max-w-md text-[15px] text-muted-foreground">
-                {getInTouch.copy}
+                {settings.getInTouch?.copy}
               </p>
             </FadeIn>
             <FadeIn
@@ -285,7 +285,7 @@ export default function HomePage() {
               className="rounded-[2px] border border-border bg-card p-7 sm:p-9"
             >
               <div className="mb-6 font-mono text-xs uppercase tracking-[0.06em] text-brand">
-                {getInTouch.formHeading}
+                {settings.getInTouch?.formHeading}
               </div>
               <QuickMessageForm />
             </FadeIn>

@@ -24,7 +24,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { LinkButton } from "@/components/link-button";
-import { company, navItems } from "@/lib/content";
+import type { SITE_SETTINGS_QUERY_RESULT } from "sanity.types";
 
 const navLinkStyle =
   "rounded-[2px] px-3 py-2 font-mono text-[11.5px] uppercase tracking-[0.05em] transition-colors";
@@ -44,8 +44,13 @@ function ThemeToggle() {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ settings }: { settings: SITE_SETTINGS_QUERY_RESULT }) {
   const pathname = usePathname();
+  const navItems = settings?.navItems ?? [];
+  const companyName = settings?.name ?? "365 Health Logistics";
+  const companyShortName = settings?.shortName ?? "365 Health";
+  const phone = settings?.phone ?? "";
+  const phoneHref = settings?.phoneHref ?? "";
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
@@ -53,7 +58,7 @@ export function SiteHeader() {
         <Link href="/" className="shrink-0 dark:rounded-[3px] dark:bg-white dark:px-2 dark:py-1.5">
           <Image
             src="/images/logo.png"
-            alt={company.name}
+            alt={companyName}
             width={152}
             height={50}
             priority
@@ -64,16 +69,16 @@ export function SiteHeader() {
         <NavigationMenu className="ml-2 hidden max-w-none justify-start lg:flex" align="start">
           <NavigationMenuList className="gap-0.5">
             {navItems.map((item) => {
-              const hasChildren = "children" in item;
+              const hasChildren = Boolean(item.children?.length);
               const active =
                 pathname === item.href ||
-                (hasChildren && item.children.some((c) => c.href === pathname));
+                (hasChildren && item.children!.some((c) => c.href === pathname));
 
               if (!hasChildren) {
                 return (
-                  <NavigationMenuItem key={item.href}>
+                  <NavigationMenuItem key={item._key}>
                     <NavigationMenuLink
-                      render={<Link href={item.href} />}
+                      render={<Link href={item.href ?? "/"} />}
                       className={cn(
                         navLinkStyle,
                         active ? "text-brand" : "text-muted-foreground hover:text-foreground"
@@ -86,9 +91,9 @@ export function SiteHeader() {
               }
 
               return (
-                <NavigationMenuItem key={item.href}>
+                <NavigationMenuItem key={item._key}>
                   <NavigationMenuTrigger
-                    render={<Link href={item.href} />}
+                    render={<Link href={item.href ?? "/"} />}
                     nativeButton={false}
                     className={cn(
                       navLinkStyle,
@@ -100,10 +105,10 @@ export function SiteHeader() {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="flex w-64 flex-col gap-0.5 p-1.5">
-                      {item.children.map((child) => (
-                        <li key={child.href}>
+                      {(item.children ?? []).map((child) => (
+                        <li key={child._key}>
                           <NavigationMenuLink
-                            render={<Link href={child.href} />}
+                            render={<Link href={child.href ?? "/"} />}
                             className="rounded-[2px] px-3 py-2.5 text-[14px] font-medium text-foreground hover:bg-muted"
                           >
                             {child.label}
@@ -144,32 +149,32 @@ export function SiteHeader() {
             <SheetContent side="right" className="w-full sm:max-w-xs">
               <SheetHeader>
                 <SheetTitle className="font-display text-lg">
-                  {company.shortName}
+                  {companyShortName}
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4">
                 {navItems.map((item) => (
-                  <div key={item.href}>
+                  <div key={item._key}>
                     <SheetClose
                       nativeButton={false}
                       render={
                         <Link
-                          href={item.href}
+                          href={item.href ?? "/"}
                           className="block rounded-[2px] px-2 py-2.5 font-mono text-sm uppercase tracking-[0.04em] text-foreground hover:bg-muted"
                         />
                       }
                     >
                       {item.label}
                     </SheetClose>
-                    {"children" in item ? (
+                    {item.children?.length ? (
                       <div className="ml-3 flex flex-col gap-0.5 border-l border-border pl-3">
                         {item.children.map((child) => (
                           <SheetClose
-                            key={child.href}
+                            key={child._key}
                             nativeButton={false}
                             render={
                               <Link
-                                href={child.href}
+                                href={child.href ?? "/"}
                                 className="block rounded-[2px] px-2 py-2 font-mono text-xs uppercase tracking-[0.04em] text-muted-foreground hover:bg-muted hover:text-foreground"
                               />
                             }
@@ -187,10 +192,10 @@ export function SiteHeader() {
                   Request a quote
                 </LinkButton>
                 <a
-                  href={company.phoneHref}
+                  href={phoneHref}
                   className="text-center font-mono text-sm text-muted-foreground"
                 >
-                  {company.phone}
+                  {phone}
                 </a>
               </div>
             </SheetContent>

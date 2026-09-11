@@ -1,9 +1,21 @@
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, XIcon } from "@/components/social-icons";
 import { TempGauge } from "@/components/temp-gauge";
-import { company, footerNavItems } from "@/lib/content";
+import type { SITE_SETTINGS_QUERY_RESULT } from "sanity.types";
 
-export function SiteFooter() {
+export function SiteFooter({ settings }: { settings: SITE_SETTINGS_QUERY_RESULT }) {
+  const footerNavItems = settings?.footerNavItems ?? [];
+  const company = {
+    shortName: settings?.shortName ?? "365 Health",
+    tagline: settings?.tagline ?? "",
+    name: settings?.name ?? "365 Health Logistics",
+    phoneHref: settings?.phoneHref ?? "",
+    phone: settings?.phone ?? "",
+    email: settings?.email ?? "",
+    address: settings?.address ?? { line1: "", line2: "" },
+    social: settings?.social ?? { facebook: "#", x: "#", instagram: "#" },
+  };
+
   return (
     <footer className="bg-brand-deep">
       <div className="mx-auto max-w-6xl px-6 py-14">
@@ -31,8 +43,8 @@ export function SiteFooter() {
             <nav className="mt-3 flex flex-col gap-2">
               {footerNavItems.map((item) => (
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  key={item._key}
+                  href={item.href ?? "/"}
                   className="text-sm text-brand-deep-foreground/85 hover:text-brand-accent"
                 >
                   {item.label}

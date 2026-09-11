@@ -31,6 +31,16 @@ export const homePage = defineType({
     defineField({ name: "secondaryCtaLabel", title: "Secondary button label", type: "string", group: "hero", initialValue: "Request a quote" }),
 
     // --- Delivery / storage / products band ---
+    defineField({ name: "deliveryHeading", title: "On-Time Delivery — heading", type: "string", group: "band", initialValue: "On-Time Delivery" }),
+    defineField({
+      name: "featuredDeliveryTiers",
+      title: "On-Time Delivery — tiers shown",
+      type: "array",
+      group: "band",
+      description: "Name + window are shown for each. Typically the first 3 delivery tiers.",
+      of: [defineArrayMember({ type: "reference", to: [{ type: "deliveryTier" }] })],
+      validation: (r) => r.max(3),
+    }),
     defineField({ name: "storageHeading", title: "Secure Storage Capacity — heading", type: "string", group: "band" }),
     defineField({ name: "storageCopy", title: "Secure Storage Capacity — copy", type: "text", rows: 3, group: "band" }),
     defineField({ name: "productsHeading", title: "Products and Solutions — heading", type: "string", group: "band" }),
