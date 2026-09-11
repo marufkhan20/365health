@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHero } from "@/components/page-hero";
-import { PhotoPanel } from "@/components/photo-panel";
-import { ComplianceBand } from "@/components/compliance-band";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { company, gelPacks, type GelPackSize } from "@/lib/content";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { FadeIn } from "@/components/fade-in";
+import { GelPackGallery } from "@/components/gel-pack-gallery";
+import { LinkButton } from "@/components/link-button";
+import { company, gelPacks } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Flexible Hot/Cold Gel Packs",
@@ -13,72 +12,64 @@ export const metadata: Metadata = {
     "Reusable, non-toxic flexible hot/cold gel packs — small, medium, and large, with and without wraps. Wholesale inquiries welcome.",
 };
 
-const sizes: (GelPackSize | "All")[] = ["All", "Small", "Medium", "Large"];
-
-function GelPackGrid({ size }: { size: GelPackSize | "All" }) {
-  const packs = size === "All" ? gelPacks : gelPacks.filter((p) => p.size === size);
-  return (
-    <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {packs.map((pack) => (
-        <div key={pack.sku}>
-          <PhotoPanel label={pack.sku} ratio="1/1" />
-          <div className="mt-3 flex items-start justify-between gap-2">
-            <h3 className="font-display text-base font-semibold leading-tight">
-              {pack.name}
-            </h3>
-            <Badge variant="secondary" className="shrink-0">
-              {pack.size}
-            </Badge>
-          </div>
-          <div className="mt-2 font-mono text-[12.5px] tabular-nums text-muted-foreground">
-            {pack.dimensions} &middot; {pack.weight}
-          </div>
-          <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[12.5px] text-muted-foreground">
-            {pack.features.map((f) => (
-              <li key={f} className="flex items-center gap-1.5">
-                <span className="size-1 rounded-full bg-brand-accent" />
-                {f}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/contact"
-            className="mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.06em] text-brand hover:underline"
-          >
-            Contact us
-          </Link>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function GelPacksPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Product Catalog"
-        title="Flexible Hot/Cold Gel Packs"
-        subtitle="Non-toxic, reusable, and flexible when frozen — engineered for both hot and cold therapy across shipping and patient-care use cases."
-        crumb="Gel Packs"
-      />
+      <section className="relative w-full overflow-hidden border-b border-border aspect-[1920/350]">
+        <Image
+          src="/images/packs/packs-hero.jpg"
+          alt="365 Health team packing a shipment"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/55 to-transparent" />
+        <div className="relative flex h-full items-center">
+          <div className="mx-auto w-full max-w-6xl px-6">
+            <FadeIn mount>
+              <h1 className="max-w-md font-display text-2xl font-semibold text-brand-deep sm:text-3xl">
+                Flexible Hot/Cold Gel Packs
+              </h1>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
 
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <Tabs defaultValue="All">
-            <TabsList>
-              {sizes.map((s) => (
-                <TabsTrigger key={s} value={s}>
-                  {s}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {sizes.map((s) => (
-              <TabsContent key={s} value={s}>
-                <GelPackGrid size={s} />
-              </TabsContent>
+          <div className="flex flex-col">
+            {gelPacks.map((pack, i) => (
+              <FadeIn
+                key={pack.sku}
+                delay={Math.min(i, 3) * 0.06}
+                className="grid gap-10 border-t border-border py-12 first:border-t-0 first:pt-0 sm:grid-cols-2 sm:items-start"
+              >
+                <div className="mx-auto w-full max-w-sm sm:mx-0">
+                  <GelPackGallery images={pack.images} alt={pack.name} />
+                </div>
+                <div>
+                  <h2 className="font-display text-2xl font-semibold sm:text-3xl">
+                    {pack.name} - {pack.label ?? pack.size}
+                  </h2>
+                  <div className="mt-4 font-mono text-xs uppercase tracking-[0.06em] text-brand">
+                    Features &amp; Specifications
+                  </div>
+                  <ul className="mt-3 flex flex-col gap-1.5">
+                    {[pack.dimensions, pack.weight, ...pack.features].map((item) => (
+                      <li key={item} className="flex items-baseline gap-2.5 text-[15px] text-muted-foreground">
+                        <span className="size-1 shrink-0 -translate-y-0.5 rounded-full bg-brand-accent" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <LinkButton href="/contact" size="lg" className="mt-6">
+                    Contact Us
+                  </LinkButton>
+                </div>
+              </FadeIn>
             ))}
-          </Tabs>
+          </div>
         </div>
       </section>
 
@@ -89,14 +80,13 @@ export default function GelPacksPage() {
           </div>
           <a
             href={`mailto:${company.email}`}
-            className="mt-3 inline-block font-display text-2xl font-semibold text-secondary-foreground hover:text-brand sm:text-3xl"
+            className="mt-3 inline-flex items-center gap-2 font-display text-2xl font-semibold text-secondary-foreground hover:text-brand sm:text-3xl"
           >
-            {company.email}
+            Email us at {company.email}
+            <ArrowRight className="size-5" />
           </a>
         </div>
       </section>
-
-      <ComplianceBand />
     </>
   );
 }

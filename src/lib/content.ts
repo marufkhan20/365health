@@ -135,112 +135,167 @@ export const warehouseCapabilities = [
   },
 ] as const;
 
-export const productFamilies = [
-  {
-    name: "CCT Rx™ Family",
-    tagline: "Temperature-controlled containers",
-    copy: "High-performance thermal packaging in a range of sizes, engineered to protect product value and integrity throughout the entire journey.",
-    specs: [
-      { k: "Format", v: "Reusable & single-use containers" },
-      { k: "Use case", v: "Parcel-level cold chain shipping" },
-      { k: "Compliance", v: "Validated thermal performance" },
-    ],
-  },
+export const cctRxFamily = {
+  heading: "Temperature Controlled Containers *CCT Rx™ Family",
+  copy: "365 ensures the value and integrity of your products throughout their entire journey with our high-performance thermal packaging solutions. We offer a range of sizes tailored to meet your specific needs. Contact us today to discover how we can help you overcome your cold chain challenges. Our experts are ready to provide the solutions you need.",
+};
+
+export const cctRxSlides = [
+  { src: "/images/products/CCTRX_Family-300x253.jpg", alt: "CCT Rx Family thermal shipping boxes" },
+  { src: "/images/products/GTS-RX-15L-300x236.jpg", alt: "GTS-RX 15L insulated container" },
+  { src: "/images/products/GTS-RX-8L-300x236.jpg", alt: "GTS-RX 8L insulated container" },
+  { src: "/images/products/IMG_0082-300x200.png", alt: "CCT Rx thermal container" },
+  { src: "/images/products/RX-3_1-300x214.png", alt: "CCT Rx thermal container" },
+] as const;
+
+export const productCategories = [
   {
     name: "Pallet Shippers",
-    tagline: "Bulk & pallet shipment solutions",
-    copy: "Available in different sizes, temperature profiles, and durations — thermal covers, PCM blankets, and passive shippers, single-use or reusable.",
-    specs: [
-      { k: "Format", v: "Single-use & reusable" },
-      { k: "Use case", v: "Bulk / pallet-level cold chain" },
-      { k: "Insulation", v: "PCM blankets, passive shippers" },
-    ],
+    image: "/images/products/cct-endeavair@2x-300x300.webp",
+    copy: "365 offers a variety of bulk and pallet shipment solutions tailored to your needs. Available in different sizes, temperature profiles, and durations, they meet industry standards using various insulation and refrigerant options. Our solutions include single-use and reusable options, from thermal covers to PCM blankets and passive shippers. Discover how 365 ensures complete cold chain protection.",
   },
   {
     name: "Thermal Covers",
-    tagline: "Tyvek® pallet covers",
-    copy: "Validated, cost-effective pallet covers made with Tyvek® — advanced protection, 100% recyclable, available in three variations.",
-    specs: [
-      { k: "Material", v: "Tyvek®" },
-      { k: "Recyclability", v: "100% recyclable" },
-      { k: "Variants", v: "3 configurations" },
-    ],
+    image: "/images/products/DuPont_Tyvek_Solar_W50-1-2-03-300x254.webp",
+    copy: "Thermal Covers, made with Tyvek®, protect pharmaceuticals, chemicals, and medical devices worldwide. These validated, cost-effective pallet covers offer advanced protection, are 100% recyclable, and come in three variations to suit your needs.",
+  },
+  {
+    name: "Monitoring Solutions",
+    image:
+      "/images/products/0005487_intemp-cx403-storage-room-ambient-temperature-bluetooth-data-logger-300x225.jpeg",
+    copy: "Bluetooth-enabled data loggers track temperature and humidity in real time across storage and transit, giving you continuous visibility and audit-ready records for every shipment.",
   },
 ] as const;
 
 export type GelPackSize = "Small" | "Medium" | "Large";
 
+const PACK_IMG = "/images/packs/";
+
 export const gelPacks: {
   sku: string;
   name: string;
   size: GelPackSize;
+  /** Heading suffix, when it differs from the plain size (e.g. "Back & Abdomen"). */
+  label?: string;
   dimensions: string;
   weight: string;
   features: string[];
+  images: string[];
 }[] = [
   {
     sku: "GP-4.25X11-S",
     name: "4.25 x 11 Flexible Hot/Cold Gel Pack",
     size: "Small",
-    dimensions: "15 x 11 x 1.5 in",
-    weight: "11.29 oz",
+    dimensions: "15 x 11 x 1.5 inches",
+    weight: "11.29 ounces",
     features: ["Non-toxic", "Flexible when frozen", "Hot and cold therapy", "Reusable", "Durable"],
+    images: [
+      "4.25-x-11-Flexible-HotCold-Gel-Pack-Small-1-399x1024.jpg",
+      "4.25-x-11-Flexible-HotCold-Gel-Pack-Small-2.jpg",
+      "4.25-x-11-Flexible-HotCold-Gel-Pack-Small-3.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-5.5X11-M",
     name: "5.5 x 11 Flexible Hot/Cold Gel Pack",
     size: "Medium",
-    dimensions: "11.02 x 11.02 x 0.79 in",
-    weight: "1.01 lb",
+    dimensions: "11.02 x 11.02 x 0.79 inches",
+    weight: "1.01 pounds",
     features: ["Non-toxic", "Flexible when frozen", "Hot and cold therapy", "Reusable", "Durable"],
+    images: [
+      "5.5-x-11-Flexible-HotCold-Gel-Pack-Medium-1-1024x513.jpg",
+      "5.5-x-11-Flexible-HotCold-Gel-Pack-Medium-2.jpg",
+      "5.5-x-11-Flexible-HotCold-Gel-Pack-Medium-3.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-7.5X11-L",
     name: "7.5 x 11 Flexible Hot/Cold Gel Pack",
     size: "Large",
-    dimensions: "15 x 11 x 1.5 in",
-    weight: "1.26 lb",
+    dimensions: "15 x 11 x 1.5 inches",
+    weight: "1.26 pounds",
     features: ["Non-toxic", "Flexible when frozen", "Hot and cold therapy", "Reusable", "Durable"],
+    images: [
+      "7.5-x-11-Flexible-HotCold-Gel-Pack-Large-1-747x1024.jpg",
+      "7.5-x-11-Flexible-HotCold-Gel-Pack-Large-2.jpg",
+      "7.5-x-11-Flexible-HotCold-Gel-Pack-Large-3.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-11X15-L",
     name: "11 x 15 Flexible Hot/Cold Gel Pack",
     size: "Large",
-    dimensions: "15 x 11 x 1.5 in",
-    weight: "2.93 lb",
+    dimensions: "15 x 11 x 1.5 inches",
+    weight: "2.93 pounds",
     features: ["Non-toxic", "Flexible when frozen", "Hot and cold therapy", "Reusable", "Durable"],
+    images: [
+      "11-x-15-Flexible-HotCold-Gel-Pack-Large-1-747x1024.jpg",
+      "11-x-15-Flexible-HotCold-Gel-Pack-Large-2.jpg",
+      "11-x-15-Flexible-HotCold-Gel-Pack-Large-3.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-WRAP-3X5X6-S",
-    name: "Flexible Hot/Cold Gel Pack with Wrap",
+    name: "Flexible Hot/Cold Gel Packs with Wrap",
     size: "Small",
-    dimensions: "3 x 5 x 6 in",
-    weight: "1.22 lb",
-    features: ["Durable", "Freezer & microwave safe", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    dimensions: "3 x 5 x 6 inches",
+    weight: "1.22 pounds",
+    features: ["Durable", "Gel packs are suitable for both freezing and microwaving", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    images: [
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-1-770x1024.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-2-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-3-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-4-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-5-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-6-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-7-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Small-8-150x150.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-WRAP-4.5X7X8-M",
-    name: "Flexible Hot/Cold Gel Pack with Wrap",
+    name: "Flexible Hot/Cold Gel Packs with Wrap",
     size: "Medium",
-    dimensions: "4.5 x 7 x 8 in",
-    weight: "1.8 lb",
-    features: ["Durable", "Freezer & microwave safe", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    dimensions: "4.5 x 7 x 8 inches",
+    weight: "1.8 pounds",
+    features: ["Durable", "Gel packs are suitable for both freezing and microwaving", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    images: [
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Medium-1-898x1024.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Medium-2-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Medium-3-150x150.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-WRAP-3X5X6-L",
-    name: "Flexible Hot/Cold Gel Pack with Wrap",
+    name: "Flexible Hot/Cold Gel Packs with Wrap",
     size: "Large",
-    dimensions: "3 x 5 x 6 in",
-    weight: "2.4 lb",
-    features: ["Durable", "Freezer & microwave safe", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    dimensions: "3 x 5 x 6 inches",
+    weight: "2.4 pounds",
+    features: ["Durable", "Gel packs are suitable for both freezing and microwaving", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    images: [
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Large-1-1006x1024.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Large-2-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Large-3-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Large-4-150x150.jpg",
+    ].map((f) => PACK_IMG + f),
   },
   {
     sku: "GP-WRAP-BACK-4.5X7X8",
-    name: "Gel Pack with Wrap — Back & Abdomen",
+    name: "Flexible Hot/Cold Gel Packs with Wrap",
     size: "Large",
-    dimensions: "4.5 x 7 x 8 in",
-    weight: "3.01 lb",
-    features: ["Durable", "Freezer & microwave safe", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    label: "Back & Abdomen",
+    dimensions: "4.5 x 7 x 8 inches",
+    weight: "3.01 pounds",
+    features: ["Durable", "Gel packs are suitable for both freezing and microwaving", "Hot and cold therapy", "Reusable", "Non-toxic"],
+    images: [
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-1-1024x1024.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-2-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-3-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-4-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-5-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-6-150x150.jpg",
+      "Flexible-HotCold-Gel-Packs-with-Wrap-Back-Abdomen-7-150x150.jpg",
+    ].map((f) => PACK_IMG + f),
   },
 ] as const;
 
