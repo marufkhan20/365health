@@ -226,6 +226,7 @@ export default async function HomePage() {
         <AdvancedTechSection
           image={urlFor(home.advancedTechImage).width(1200).url()}
           imageAlt={home.advancedTechImage.alt ?? ""}
+          complianceBand={settings.complianceBand}
         />
       ) : null}
 

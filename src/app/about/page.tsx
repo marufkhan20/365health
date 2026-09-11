@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { AdvancedTechSection } from "@/components/advanced-tech-section";
 import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
-import { missionVision } from "@/lib/content";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import { ABOUT_PAGE_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,14 +12,20 @@ export const metadata: Metadata = {
     "365 Health Logistics is a Chatsworth, CA cold-chain 3PL — our mission and vision for pharmaceutical logistics.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [{ data: page }, { data: settings }] = await Promise.all([
+    sanityFetch({ query: ABOUT_PAGE_QUERY, stega: false }),
+    sanityFetch({ query: SITE_SETTINGS_QUERY, stega: false }),
+  ]);
+  if (!page) return null;
+
   return (
     <>
       <PageHero
         eyebrow="About Us"
-        title="About Us"
+        title={page.title ?? "About Us"}
         crumb="About"
-        image="/images/about.jpg"
+        image={page.heroImage ? urlFor(page.heroImage).width(1920).url() : undefined}
       />
 
       <section className="border-b border-border">
@@ -29,7 +37,7 @@ export default function AboutPage() {
                 Our Mission
               </div>
               <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
-                {missionVision.mission}
+                {page.mission}
               </p>
             </FadeIn>
             <FadeIn delay={0.1}>
@@ -38,18 +46,21 @@ export default function AboutPage() {
                 Our Vision
               </div>
               <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
-                {missionVision.vision}
+                {page.vision}
               </p>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      <AdvancedTechSection
-        image="/images/about-2.png"
-        imageAlt="Air freight, trucks, and last-mile vans supporting 365 Health's cold chain network"
-        bordered={false}
-      />
+      {page.advancedTechImage ? (
+        <AdvancedTechSection
+          image={urlFor(page.advancedTechImage).width(1200).url()}
+          imageAlt={page.advancedTechImage.alt ?? ""}
+          complianceBand={settings?.complianceBand}
+          bordered={false}
+        />
+      ) : null}
     </>
   );
 }

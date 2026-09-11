@@ -3,21 +3,32 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
 import { ContactForm } from "@/components/contact-form";
-import { company } from "@/lib/content";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import { CONTACT_PAGE_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Reach 365 Health Logistics at ${company.address.line1}, ${company.address.line2}, or call ${company.phone}.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { data: settings } = await sanityFetch({ query: SITE_SETTINGS_QUERY, stega: false });
+  return {
+    title: "Contact",
+    description: `Reach 365 Health Logistics at ${settings?.address?.line1}, ${settings?.address?.line2}, or call ${settings?.phone}.`,
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [{ data: page }, { data: settings }] = await Promise.all([
+    sanityFetch({ query: CONTACT_PAGE_QUERY, stega: false }),
+    sanityFetch({ query: SITE_SETTINGS_QUERY, stega: false }),
+  ]);
+  if (!page) return null;
+
   return (
     <>
       <PageHero
         eyebrow="Connect With Us"
-        title="Contact"
+        title={page.title ?? "Contact"}
         crumb="Contact"
-        image="/images/customer_service.jpg"
+        image={page.heroImage ? urlFor(page.heroImage).width(1920).url() : undefined}
       />
 
       <section>
@@ -26,7 +37,7 @@ export default function ContactPage() {
             <FadeIn>
               <div className="h-px w-10 bg-brand" />
               <h2 className="mt-4 font-display text-2xl font-semibold sm:text-3xl">
-                Connect with Us
+                {page.formHeading}
               </h2>
               <div className="mt-6">
                 <ContactForm />
@@ -41,23 +52,23 @@ export default function ContactPage() {
                 <div className="flex gap-3">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-brand-accent" />
                   <div className="text-[15px]">
-                    <div>{company.address.line1}</div>
-                    <div>{company.address.line2}</div>
+                    <div>{settings?.address?.line1}</div>
+                    <div>{settings?.address?.line2}</div>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <Phone className="mt-0.5 size-4 shrink-0 text-brand-accent" />
-                  <a href={company.phoneHref} className="text-[15px] hover:text-brand">
-                    {company.phone}
+                  <a href={settings?.phoneHref} className="text-[15px] hover:text-brand">
+                    {settings?.phone}
                   </a>
                 </div>
                 <div className="flex gap-3">
                   <Mail className="mt-0.5 size-4 shrink-0 text-brand-accent" />
                   <a
-                    href={`mailto:${company.email}`}
+                    href={`mailto:${settings?.email ?? ""}`}
                     className="text-[15px] hover:text-brand"
                   >
-                    {company.email}
+                    {settings?.email}
                   </a>
                 </div>
               </div>

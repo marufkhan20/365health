@@ -1,7 +1,9 @@
 import { Eyebrow } from "@/components/eyebrow";
 import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
-import { serviceCategories } from "@/lib/content";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import { SERVICES_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,14 +14,17 @@ export const metadata: Metadata = {
     "Comprehensive cold chain logistics services for the pharmaceutical and biotech sector.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const { data: page } = await sanityFetch({ query: SERVICES_PAGE_QUERY, stega: false });
+  if (!page) return null;
+
   return (
     <>
       <PageHero
         eyebrow="What We Offer"
-        title="Services"
+        title={page.title ?? "Services"}
         crumb="Services"
-        image="/images/services-hero.webp"
+        image={page.heroImage ? urlFor(page.heroImage).width(1920).url() : undefined}
       />
 
       <section className="border-b border-border">
@@ -27,22 +32,24 @@ export default function ServicesPage() {
           <FadeIn className="text-center">
             <Eyebrow className="mx-auto w-fit">What We Offer</Eyebrow>
             <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-              Every part of the cold chain, handled
+              {page.categoriesHeading}
             </h2>
           </FadeIn>
 
           <div className="mt-12 grid gap-10 sm:grid-cols-3">
-            {serviceCategories.map((s, i) => (
-              <FadeIn key={s.name} delay={i * 0.1}>
-                <Link href={s.href} className="group block">
+            {(page.categories ?? []).map((s, i) => (
+              <FadeIn key={s._key} delay={i * 0.1}>
+                <Link href={s.href ?? "/"} className="group block">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border">
-                    <Image
-                      src={s.image}
-                      alt={s.name}
-                      fill
-                      sizes="(min-width: 640px) 33vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    {s.image ? (
+                      <Image
+                        src={urlFor(s.image).width(800).url()}
+                        alt={s.image.alt ?? s.name ?? ""}
+                        fill
+                        sizes="(min-width: 640px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : null}
                   </div>
                   <div className="mt-4 text-center font-display text-xl font-semibold uppercase tracking-tight group-hover:text-brand">
                     {s.name}

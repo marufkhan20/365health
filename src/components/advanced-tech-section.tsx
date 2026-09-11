@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/eyebrow";
 import { FadeIn } from "@/components/fade-in";
 import { LinkButton } from "@/components/link-button";
 import { cn } from "cn";
-import { complianceBand } from "@/lib/content";
+import type { SITE_SETTINGS_QUERY_RESULT } from "sanity.types";
 
 /**
  * The "Advanced Technology & Strict Compliance" content, repeated as a
@@ -15,10 +15,12 @@ import { complianceBand } from "@/lib/content";
 export function AdvancedTechSection({
   image,
   imageAlt,
+  complianceBand,
   bordered = true,
 }: {
   image: string;
   imageAlt: string;
+  complianceBand: NonNullable<SITE_SETTINGS_QUERY_RESULT>["complianceBand"];
   bordered?: boolean;
 }) {
   return (
@@ -42,12 +44,12 @@ export function AdvancedTechSection({
             />
           </FadeIn>
           <FadeIn delay={0.15} className="sm:order-2">
-            <Eyebrow>{complianceBand.eyebrow}</Eyebrow>
+            <Eyebrow>{complianceBand?.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-              {complianceBand.heading}
+              {complianceBand?.heading}
             </h2>
             <p className="mt-5 text-[15px] text-muted-foreground">
-              {complianceBand.copy}
+              {complianceBand?.copy}
             </p>
             <LinkButton href="/product-solutions" size="lg" className="mt-7">
               Explore our technology
