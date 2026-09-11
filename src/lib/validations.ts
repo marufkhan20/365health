@@ -23,8 +23,18 @@ export const quoteSchema = contactSchema
     message: z.string().trim().min(10, "Tell us a bit more (10+ characters)"),
   });
 
+// The homepage's "Get in Touch" mini-form — name, email, company, message.
+export const quickMessageSchema = z.object({
+  name: z.string().trim().min(2, "Enter your full name"),
+  email: z.email("Enter a valid email"),
+  company: z.string().trim().min(2, "Enter your company name"),
+  message: z.string().trim().min(10, "Tell us a bit more (10+ characters)"),
+  company_website: z.string().max(0).optional().or(z.literal("")),
+});
+
 export type ContactValues = z.infer<typeof contactSchema>;
 export type QuoteValues = z.infer<typeof quoteSchema>;
+export type QuickMessageValues = z.infer<typeof quickMessageSchema>;
 
 export type FormState = {
   status: "idle" | "success" | "error";

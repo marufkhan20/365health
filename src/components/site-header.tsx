@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun } from "lucide-react";
@@ -38,14 +39,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6">
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="size-2 rounded-full bg-thermal" />
-          <span className="font-display text-xl font-semibold tracking-tight">
-            {company.shortName}
-          </span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground sm:inline">
-            Logistics
-          </span>
+        <Link href="/" className="shrink-0 dark:rounded-[3px] dark:bg-white dark:px-2 dark:py-1.5">
+          <Image
+            src="/images/logo.png"
+            alt={company.name}
+            width={152}
+            height={50}
+            priority
+            className="h-8 w-auto sm:h-9"
+          />
         </Link>
 
         <nav className="ml-2 hidden items-center gap-1 lg:flex">

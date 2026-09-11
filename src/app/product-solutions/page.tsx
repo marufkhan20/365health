@@ -62,7 +62,7 @@ export default function ProductSolutionsPage() {
                   <PhotoPanel label={family.name} ratio="4/3" />
                 </div>
                 <div>
-                  <div className="font-mono text-xs uppercase tracking-[0.06em] text-thermal">
+                  <div className="font-mono text-xs uppercase tracking-[0.06em] text-brand-accent">
                     {family.tagline}
                   </div>
                   <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">{family.name}</h2>
@@ -95,7 +95,7 @@ export default function ProductSolutionsPage() {
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {whyStorageMatters.map((item) => (
               <li key={item} className="flex gap-3 text-sm text-muted-foreground">
-                <span className="mt-2 size-1 shrink-0 rounded-full bg-thermal" />
+                <span className="mt-2 size-1 shrink-0 rounded-full bg-brand-accent" />
                 {item}
               </li>
             ))}

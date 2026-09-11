@@ -33,7 +33,7 @@ export function TempGauge({
         )}
       >
         <span
-          className="absolute top-1/2 size-[7px] -translate-y-1/2 -translate-x-1/2 rounded-full bg-thermal"
+          className="absolute top-1/2 size-[7px] -translate-y-1/2 -translate-x-1/2 rounded-full bg-brand-accent"
           style={{ left: `${position * 100}%` }}
         />
       </span>

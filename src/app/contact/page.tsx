@@ -27,20 +27,20 @@ export default function ContactPage() {
               </div>
               <div className="mt-6 flex flex-col gap-6">
                 <div className="flex gap-3">
-                  <MapPin className="mt-0.5 size-4 shrink-0 text-thermal" />
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-brand-accent" />
                   <div className="text-[15px]">
                     <div>{company.address.line1}</div>
                     <div>{company.address.line2}</div>
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <Phone className="mt-0.5 size-4 shrink-0 text-thermal" />
+                  <Phone className="mt-0.5 size-4 shrink-0 text-brand-accent" />
                   <a href={company.phoneHref} className="text-[15px] hover:text-brand">
                     {company.phone}
                   </a>
                 </div>
                 <div className="flex gap-3">
-                  <Mail className="mt-0.5 size-4 shrink-0 text-thermal" />
+                  <Mail className="mt-0.5 size-4 shrink-0 text-brand-accent" />
                   <a
                     href={`mailto:${company.email}`}
                     className="text-[15px] hover:text-brand"

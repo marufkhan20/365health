@@ -36,7 +36,7 @@ export function PhotoPanel({
         <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-brand-deep-foreground/70">
           {label}
         </span>
-        <span className="size-1.5 rounded-full bg-thermal" />
+        <span className="size-1.5 rounded-full bg-brand-accent" />
       </div>
     </div>
   );

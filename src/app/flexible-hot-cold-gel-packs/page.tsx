@@ -36,7 +36,7 @@ function GelPackGrid({ size }: { size: GelPackSize | "All" }) {
           <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[12.5px] text-muted-foreground">
             {pack.features.map((f) => (
               <li key={f} className="flex items-center gap-1.5">
-                <span className="size-1 rounded-full bg-thermal" />
+                <span className="size-1 rounded-full bg-brand-accent" />
                 {f}
               </li>
             ))}

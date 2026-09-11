@@ -1,6 +1,11 @@
 "use server";
 
-import { contactSchema, quoteSchema, type FormState } from "@/lib/validations";
+import {
+  contactSchema,
+  quickMessageSchema,
+  quoteSchema,
+  type FormState,
+} from "@/lib/validations";
 import { sendLeadEmail } from "@/lib/email";
 
 function fieldErrors(issues: { path: PropertyKey[]; message: string }[]) {
@@ -60,4 +65,28 @@ export async function submitQuote(
   });
 
   return { status: "success", message: "Thanks — a member of our team will follow up." };
+}
+
+export async function submitQuickMessage(
+  _prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const parsed = quickMessageSchema.safeParse(Object.fromEntries(formData));
+
+  if (!parsed.success) {
+    return { status: "error", errors: fieldErrors(parsed.error.issues) };
+  }
+  if (parsed.data.company_website) {
+    return { status: "success", message: "Thanks — we'll be in touch shortly." };
+  }
+
+  const { name, email, company, message } = parsed.data;
+  await sendLeadEmail(`New quick message from ${name} (${company})`, {
+    Name: name,
+    Email: email,
+    Company: company,
+    Message: message,
+  });
+
+  return { status: "success", message: "Thanks — we'll be in touch shortly." };
 }

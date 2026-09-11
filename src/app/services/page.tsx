@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { Eyebrow } from "@/components/eyebrow";
+import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
-import { PhotoPanel } from "@/components/photo-panel";
-import { ComplianceBand } from "@/components/compliance-band";
-import { serviceCopy, serviceStats, services } from "@/lib/content";
+import { serviceCategories } from "@/lib/content";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Comprehensive cold chain logistics services for the pharmaceutical and biotech sector.",
+  description:
+    "Comprehensive cold chain logistics services for the pharmaceutical and biotech sector.",
 };
 
 export default function ServicesPage() {
@@ -16,46 +17,44 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="What We Offer"
-        title="Comprehensive cold chain logistics services"
-        subtitle={serviceCopy}
+        title="Services"
         crumb="Services"
+        image="/images/services-hero.webp"
       />
 
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <div className="grid gap-px overflow-hidden rounded-[2px] border border-border bg-border sm:grid-cols-3">
-            {serviceStats.map((s) => (
-              <div key={s.label} className="bg-card p-7">
-                <div className="font-mono text-3xl font-medium tabular-nums text-brand sm:text-4xl">
-                  {s.value}
-                </div>
-                <div className="mt-1 font-display text-lg font-semibold">
-                  {s.unit} · {s.label}
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{s.copy}</p>
-              </div>
-            ))}
-          </div>
+          <FadeIn className="text-center">
+            <Eyebrow className="mx-auto w-fit">What We Offer</Eyebrow>
+            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
+              Every part of the cold chain, handled
+            </h2>
+          </FadeIn>
 
-          <div className="mt-16 grid gap-10 sm:grid-cols-3">
-            {services.map((s) => (
-              <div key={s.name}>
-                <PhotoPanel label={s.name} ratio="4/3" />
-                <div className="mt-4 font-display text-lg font-semibold">{s.name}</div>
-                <p className="mt-2 text-sm text-muted-foreground">{s.copy}</p>
-                <Link
-                  href={s.href}
-                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-brand hover:underline"
-                >
-                  Learn more <ArrowRight className="size-3" />
+          <div className="mt-12 grid gap-10 sm:grid-cols-3">
+            {serviceCategories.map((s, i) => (
+              <FadeIn key={s.name} delay={i * 0.1}>
+                <Link href={s.href} className="group block">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border">
+                    <Image
+                      src={s.image}
+                      alt={s.name}
+                      fill
+                      sizes="(min-width: 640px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="mt-4 text-center font-display text-xl font-semibold uppercase tracking-tight group-hover:text-brand">
+                    {s.name}
+                  </div>
                 </Link>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      <ComplianceBand />
+      {/* <ComplianceBand /> */}
     </>
   );
 }

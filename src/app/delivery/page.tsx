@@ -53,7 +53,7 @@ export default function DeliveryPage() {
                     <TableCell className="font-display text-base font-semibold">
                       {tier.name}
                     </TableCell>
-                    <TableCell className="font-mono tabular-nums text-thermal">
+                    <TableCell className="font-mono tabular-nums text-brand-accent">
                       {tier.window}
                     </TableCell>
                     <TableCell className="text-muted-foreground">{tier.detail}</TableCell>

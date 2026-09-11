@@ -23,7 +23,7 @@ export function ComplianceBand() {
               <LinkButton
                 href="/product-solutions"
                 size="lg"
-                className="bg-thermal text-thermal-foreground hover:bg-thermal/85"
+                className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/85"
               >
                 Explore our technology
                 <ArrowRight className="size-3.5" />

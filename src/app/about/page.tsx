@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import { AdvancedTechSection } from "@/components/advanced-tech-section";
+import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
-import { PhotoPanel } from "@/components/photo-panel";
-import { CredentialBand } from "@/components/credential-band";
-import { ComplianceBand } from "@/components/compliance-band";
 import { missionVision } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -16,40 +15,41 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About Us"
-        title="A white-glove standard for pharma in transit."
+        title="About Us"
         crumb="About"
+        image="/images/about.jpg"
       />
 
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <div className="grid gap-12 sm:grid-cols-2">
-            <div>
-              <div className="font-mono text-xs uppercase tracking-[0.06em] text-brand">
+            <FadeIn>
+              <div className="h-px w-10 bg-brand" />
+              <div className="mt-4 font-display text-2xl font-semibold uppercase tracking-tight">
                 Our Mission
               </div>
-              <p className="mt-4 text-[17px] leading-relaxed">{missionVision.mission}</p>
-            </div>
-            <div>
-              <div className="font-mono text-xs uppercase tracking-[0.06em] text-brand">
+              <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
+                {missionVision.mission}
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <div className="h-px w-10 bg-brand" />
+              <div className="mt-4 font-display text-2xl font-semibold uppercase tracking-tight">
                 Our Vision
               </div>
-              <p className="mt-4 text-[17px] leading-relaxed">{missionVision.vision}</p>
-            </div>
-          </div>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
-            <PhotoPanel label="365 Health team — Chatsworth, CA" ratio="4/3" />
-            <PhotoPanel label="Reefer fleet, ready for dispatch" ratio="4/3" />
-            <PhotoPanel label="Cold-storage racking" ratio="4/3" />
-          </div>
-
-          <div className="mt-14">
-            <CredentialBand />
+              <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
+                {missionVision.vision}
+              </p>
+            </FadeIn>
           </div>
         </div>
       </section>
 
-      <ComplianceBand />
+      <AdvancedTechSection
+        image="/images/about-2.png"
+        imageAlt="Air freight, trucks, and last-mile vans supporting 365 Health's cold chain network"
+        bordered={false}
+      />
     </>
   );
 }

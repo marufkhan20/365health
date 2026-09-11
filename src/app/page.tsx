@@ -1,139 +1,136 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Eyebrow } from "@/components/eyebrow";
-import { LinkButton } from "@/components/link-button";
-import { TempGauge } from "@/components/temp-gauge";
-import { PhotoPanel } from "@/components/photo-panel";
+import { AdvancedTechSection } from "@/components/advanced-tech-section";
+import { ClientLogoSlider } from "@/components/client-logo-slider";
 import { CredentialBand } from "@/components/credential-band";
-import { ClientLogoRow } from "@/components/client-logo-row";
-import { ComplianceBand } from "@/components/compliance-band";
+import { Eyebrow } from "@/components/eyebrow";
+import { FadeIn } from "@/components/fade-in";
+import { HeroImage } from "@/components/hero-image";
+import { LinkButton } from "@/components/link-button";
+import { QuickMessageForm } from "@/components/quick-message-form";
 import {
   company,
   deliveryTiers,
-  heroStats,
+  getInTouch,
+  serviceCopy,
   services,
   testimonial,
+  testimonialIntro,
 } from "@/lib/content";
+import { cn } from "cn";
+import { ArrowRight, User, Warehouse } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-brand-deep">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(-32deg, #fff 0 2px, transparent 2px 26px)",
-          }}
+        <HeroImage
+          src="/images/home-hero.png"
+          alt="A 365 Health Logistics courier loading temperature-sensitive packages into a delivery van"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-deep/95 via-brand-deep/85 to-brand-deep/45" />
         <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
-          <Eyebrow tone="inverted">Southern California · Cold Chain 3PL</Eyebrow>
-          <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.98] text-brand-deep-foreground sm:text-6xl lg:text-7xl">
-            {company.tagline}.
-          </h1>
-          <p className="mt-6 max-w-lg text-[17px] text-brand-deep-foreground/75">
-            {company.subhead}
-          </p>
+          <FadeIn mount>
+            <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.98] text-brand-deep-foreground sm:text-6xl lg:text-7xl">
+              {company.tagline}.
+            </h1>
+          </FadeIn>
+          <FadeIn mount delay={0.15}>
+            <p className="mt-6 max-w-lg text-[17px] text-brand-deep-foreground/75">
+              {company.subhead}
+            </p>
+          </FadeIn>
 
-          <div className="mt-9 flex flex-wrap items-center gap-6">
-            <LinkButton
-              href="/services"
-              size="lg"
-              className="bg-thermal text-thermal-foreground hover:bg-thermal/85"
-            >
-              Discover our solutions
-              <ArrowRight className="size-3.5" />
-            </LinkButton>
-            <LinkButton
-              href="/request-a-quote"
-              variant="outline"
-              size="lg"
-              className="border-brand-deep-foreground/30 bg-transparent text-brand-deep-foreground hover:bg-brand-deep-foreground/10"
-            >
-              Request a quote
-            </LinkButton>
-            <TempGauge
-              className="text-brand-deep-foreground/55"
-              trackClassName="bg-brand-deep-foreground/25 before:bg-brand-deep-foreground/25 after:bg-brand-deep-foreground/25"
-            />
-          </div>
-
-          <div className="mt-16 grid grid-cols-3 divide-x divide-brand-deep-foreground/15 border-t border-brand-deep-foreground/15 pt-6 sm:max-w-xl">
-            {heroStats.map((s) => (
-              <div key={s.label} className="px-4 first:pl-0 sm:px-6">
-                <div className="font-mono text-2xl font-medium tabular-nums text-brand-deep-foreground sm:text-3xl">
-                  {s.value}
-                </div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.06em] text-brand-deep-foreground/60">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
+          <FadeIn mount delay={0.3}>
+            <div className="mt-9 flex flex-wrap items-center gap-6">
+              <LinkButton
+                href="/services"
+                size="lg"
+                className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/85"
+              >
+                Discover our solutions
+                <ArrowRight className="size-3.5" />
+              </LinkButton>
+              <LinkButton
+                href="/request-a-quote"
+                variant="outline"
+                size="lg"
+                className="border-brand-deep-foreground/30 bg-transparent text-brand-deep-foreground hover:bg-brand-deep-foreground/10"
+              >
+                Request a quote
+              </LinkButton>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
-      {/* Delivery tiers */}
+      {/* Clients */}
       <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <Eyebrow>On-Time Delivery</Eyebrow>
-          <h2 className="mt-4 max-w-lg text-3xl font-semibold sm:text-4xl">
-            Next day, same day, or urgent — your window, our commitment.
+        <FadeIn className="mx-auto max-w-6xl px-6 pt-12 sm:pt-16">
+          <Eyebrow>Our Clients</Eyebrow>
+          <h2 className="mt-4 max-w-lg text-2xl font-semibold sm:text-3xl">
+            Trusted by professionals
           </h2>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-[2px] border border-border bg-border sm:grid-cols-3">
-            {deliveryTiers.map((tier) => (
-              <div key={tier.name} className="bg-card p-6">
-                <div className="font-mono text-xs uppercase tracking-[0.06em] text-thermal">
-                  {tier.window}
-                </div>
-                <div className="mt-2 font-display text-xl font-semibold">{tier.name}</div>
-                <p className="mt-2 text-sm text-muted-foreground">{tier.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        </FadeIn>
+        <FadeIn delay={0.1} className="mx-auto mt-8 max-w-6xl px-6 pb-12 sm:pb-16">
+          <ClientLogoSlider />
+        </FadeIn>
       </section>
 
-      {/* Warehouse + Products split */}
-      <section className="border-b border-border">
+      {/* On-Time Delivery / Secure Storage Capacity / Products and Solutions —
+          one unified band on the live site, directly under the client logos */}
+      <section className="border-b border-border bg-brand-deep">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <div className="grid gap-14 sm:grid-cols-2">
-            <div>
-              <Eyebrow>Secure Storage Capacity</Eyebrow>
-              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">Warehousing</h2>
-              <p className="mt-4 text-[15px] text-muted-foreground">
+          <div className="grid gap-10 divide-brand-deep-foreground/15 sm:grid-cols-3 sm:gap-0 sm:divide-x">
+            <FadeIn className="sm:pr-10">
+              <Eyebrow tone="inverted">On-Time Delivery</Eyebrow>
+              <div className="mt-5 flex flex-col gap-4">
+                {deliveryTiers.map((tier) => (
+                  <div key={tier.name}>
+                    <div className="font-display text-lg font-semibold text-brand-deep-foreground">
+                      {tier.name}
+                    </div>
+                    <div className="mt-0.5 font-mono text-[11px] tabular-nums text-brand-accent">
+                      {tier.window}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1} className="sm:px-10">
+              <Eyebrow tone="inverted">Secure Storage Capacity</Eyebrow>
+              <p className="mt-5 text-[15px] text-brand-deep-foreground/75">
                 Our Southern California warehouse efficiently stores regular and
-                temperature-controlled biopharma products, with up-to-date inventory
-                counts. One convenient location streamlines storage and delivery —
-                no need for multiple intermediaries.
+                temperature-controlled biopharma products, with up-to-date
+                inventory counts. One convenient location streamlines storage
+                and delivery — no need for multiple intermediaries.
               </p>
-              <PhotoPanel label="Cold storage warehouse — Chatsworth, CA" className="mt-6" ratio="16/10" />
               <Link
                 href="/warehouse"
-                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand hover:underline"
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand-deep-foreground hover:text-brand-accent"
               >
                 Warehouse & fulfillment <ArrowRight className="size-3.5" />
               </Link>
-            </div>
-            <div>
-              <Eyebrow>Products and Solutions</Eyebrow>
-              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
-                Thermal packaging, engineered
-              </h2>
-              <p className="mt-4 text-[15px] text-muted-foreground">
-                A diverse range of meticulously engineered thermal packaging
-                solutions, tailored for the pharmaceutical and biotech industries —
-                built to meet the rigorous demands of temperature-sensitive items.
+            </FadeIn>
+
+            <FadeIn delay={0.2} className="sm:pl-10">
+              <Eyebrow tone="inverted">Products and Solutions</Eyebrow>
+              <p className="mt-5 text-[15px] text-brand-deep-foreground/75">
+                Our company offers a diverse range of meticulously engineered
+                thermal packaging solutions tailored specifically for the
+                pharmaceutical and biotech industries. Our products are
+                designed to meet the rigorous demands of temperature-sensitive
+                items.
               </p>
-              <PhotoPanel label="CCT Rx™ thermal shippers" className="mt-6" ratio="16/10" />
               <Link
                 href="/product-solutions"
-                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand hover:underline"
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-brand-deep-foreground hover:text-brand-accent"
               >
                 Product solutions <ArrowRight className="size-3.5" />
               </Link>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -141,67 +138,160 @@ export default function HomePage() {
       {/* Who we are + services */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <Eyebrow>Who We Are</Eyebrow>
-          <h2 className="mt-4 max-w-xl text-3xl font-semibold sm:text-4xl">
-            Your partners in cold storage medical logistics
-          </h2>
-          <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground">
-            At 365 Health Logistics, we specialize in the cold-storage transportation
-            of pharmaceuticals and medications. With a commitment to safety,
-            reliability, and compliance, we provide end-to-end logistics solutions
-            that protect the integrity of your products every step of the way. Our
-            state-of-the-art technology and trained professionals ensure your
-            medical supplies are handled with the utmost care and precision.
-          </p>
-
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            {services.map((s) => (
-              <div key={s.name} className="border-t border-border pt-5">
-                <div className="font-display text-lg font-semibold">{s.name}</div>
-                <p className="mt-2 text-sm text-muted-foreground">{s.copy}</p>
-                <Link
-                  href={s.href}
-                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-brand hover:underline"
-                >
-                  Learn more <ArrowRight className="size-3" />
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-14">
-            <CredentialBand />
+          <div className="grid gap-10 sm:grid-cols-2 sm:items-center sm:gap-16">
+            <FadeIn>
+              <Eyebrow>Who We Are</Eyebrow>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
+                Your partners in cold storage medical logistics
+              </h2>
+              <p className="mt-5 text-[15px] text-muted-foreground">
+                At 365 Health Logistics, we specialize in the cold-storage
+                transportation of pharmaceuticals and medications. With a
+                commitment to safety, reliability, and compliance, we provide
+                end-to-end logistics solutions that protect the integrity of
+                your products every step of the way. Our state-of-the-art
+                technology and trained professionals ensure your medical
+                supplies are handled with the utmost care and precision.
+              </p>
+              <LinkButton href="/services" size="lg" className="mt-7">
+                Discover our solutions
+                <ArrowRight className="size-3.5" />
+              </LinkButton>
+            </FadeIn>
+            <FadeIn
+              delay={0.15}
+              className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border sm:aspect-square"
+            >
+              <Image
+                src="/images/who-we-are.png"
+                alt="Air freight, trucks, and last-mile vans supporting 365 Health's cold chain network"
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* Clients + testimonial */}
+      {/* What We Offer */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <div className="grid gap-14 sm:grid-cols-[1fr_1.1fr]">
-            <div>
-              <Eyebrow>Our Clients</Eyebrow>
-              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
+          <FadeIn>
+            <Eyebrow>What We Offer</Eyebrow>
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold sm:text-4xl">
+              Comprehensive cold chain logistics services
+            </h2>
+            <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground">
+              {serviceCopy}
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.1} className="mt-12 grid gap-10 sm:grid-cols-2">
+            {services.slice(0, 2).map((s) => (
+              <div key={s.name} className="border-t border-border pt-5">
+                <div className="flex size-11 items-center justify-center rounded-[2px] border border-border bg-secondary">
+                  {s.icon ? (
+                    <Image
+                      src={s.icon}
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="size-6 dark:invert"
+                    />
+                  ) : (
+                    <Warehouse className="size-5 text-brand" />
+                  )}
+                </div>
+                <div className="mt-4 font-display text-lg font-semibold">
+                  {s.name}
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{s.copy}</p>
+              </div>
+            ))}
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <LinkButton href="/services" size="lg" className="mt-10">
+              View our services
+              <ArrowRight className="size-3.5" />
+            </LinkButton>
+          </FadeIn>
+
+          <FadeIn delay={0.2} className="mt-14">
+            <CredentialBand />
+          </FadeIn>
+        </div>
+      </section>
+
+      <AdvancedTechSection
+        image="/images/who-we-are.png"
+        imageAlt="Air freight and ground fleet supporting 365 Health's temperature-monitoring technology"
+      />
+
+      {/* Testimonial */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <div className="grid gap-10 sm:grid-cols-[1fr_1.1fr] sm:items-start sm:gap-16">
+            <FadeIn>
+              <Eyebrow>Hear From Our Clients</Eyebrow>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
                 Trusted by professionals
               </h2>
-              <div className="mt-8">
-                <ClientLogoRow />
-              </div>
-            </div>
-            <div className="border-l border-border pl-8">
-              <Eyebrow>Hear From Our Clients</Eyebrow>
-              <blockquote className="mt-4 text-xl font-medium leading-snug text-foreground sm:text-2xl">
-                &ldquo;{testimonial.quote}&rdquo;
-              </blockquote>
-              <p className="mt-4 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
+              <p className="mt-5 max-w-sm text-[15px] text-muted-foreground">
+                {testimonialIntro}
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.15} className="flex flex-col gap-4">
+              {testimonial.quoteParts.map((part, i) => (
+                <div
+                  key={part}
+                  className={cn(
+                    "flex items-start gap-3 rounded-[2px] border p-5",
+                    i === 0
+                      ? "border-brand/30 bg-brand-tint"
+                      : "border-border bg-card"
+                  )}
+                >
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-brand-deep-foreground">
+                    <User className="size-4" />
+                  </span>
+                  <p className="text-[15px] text-foreground">{part}</p>
+                </div>
+              ))}
+              <p className="mt-1 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
                 — {testimonial.attribution}
               </p>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
-      <ComplianceBand />
+      {/* Get in Touch */}
+      <section>
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <div className="grid gap-14 sm:grid-cols-[1fr_1.1fr] sm:gap-16">
+            <FadeIn>
+              <Eyebrow>{getInTouch.eyebrow}</Eyebrow>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
+                {getInTouch.heading}
+              </h2>
+              <p className="mt-5 max-w-md text-[15px] text-muted-foreground">
+                {getInTouch.copy}
+              </p>
+            </FadeIn>
+            <FadeIn
+              delay={0.15}
+              className="rounded-[2px] border border-border bg-card p-7 sm:p-9"
+            >
+              <div className="mb-6 font-mono text-xs uppercase tracking-[0.06em] text-brand">
+                {getInTouch.formHeading}
+              </div>
+              <QuickMessageForm />
+            </FadeIn>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

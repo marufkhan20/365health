@@ -28,6 +28,14 @@ export const navItems = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+// The live site's footer uses a shorter nav than the header.
+export const footerNavItems = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
+] as const;
+
 export const credentials = [
   { label: "3PL Licensed", detail: "Third-party logistics license for pharma freight" },
   { label: "HIPAA Compliant", detail: "Drivers & dispatchers trained on patient privacy" },
@@ -225,12 +233,16 @@ export const gelPacks: {
 ] as const;
 
 export const clients = [
-  "Amazon",
-  "Walmart",
-  "Best Buy",
-  "Sam's Club",
-  "USC Keck's Pharmacy",
+  { name: "Amazon", logo: "/images/clients/Amazon-Image.png" },
+  { name: "Walmart", logo: "/images/clients/Walmart-Image.png" },
+  { name: "Best Buy", logo: "/images/clients/best-buy.jpg" },
+  { name: "Sam's Club", logo: "/images/clients/Sams-Club.png" },
+  { name: "USC Keck's Pharmacy", logo: "/images/clients/usc.png" },
+  { name: "Cold Chain Technologies", logo: "/images/clients/cold-chain.png" },
 ] as const;
+
+export const testimonialIntro =
+  "Our clients trust us to handle their most sensitive shipments. Here's what they have to say.";
 
 // NOTE: unattributed on the live site — placeholder attribution below.
 // Get a real name / title / company before launch; an anonymous quote
@@ -238,7 +250,19 @@ export const clients = [
 export const testimonial = {
   quote:
     "365 Health Logistics has consistently exceeded our expectations, ensuring our products are delivered safely and on time. Their attention to detail and proactive communication make them a valued partner in our supply chain.",
+  // The live site breaks this one quote across two message-style cards.
+  quoteParts: [
+    "365 Health Logistics has consistently exceeded our expectations, ensuring our products are delivered safely and on time.",
+    "Their attention to detail and proactive communication make them a valued partner in our supply chain.",
+  ],
   attribution: "Supply chain partner, 365 Health client",
+} as const;
+
+export const getInTouch = {
+  eyebrow: "Get in Touch",
+  heading: "Ready to start a conversation?",
+  copy: "Have questions or need to schedule a consultation? Our expert team is ready to help you streamline your pharmaceutical logistics needs. Contact us today to ensure your products are in the best hands.",
+  formHeading: "Send a quick message",
 } as const;
 
 export const missionVision = {
@@ -261,16 +285,31 @@ export const services = [
   {
     name: "Logistic Operators",
     href: "/delivery",
+    icon: "/images/call-center.png",
     copy: "Logistics play a vital role in transporting biotech, including pharmaceuticals, from one point to another successfully. Data collection, analysis, and customer communication keep freight flowing efficiently and on schedule.",
   },
   {
     name: "Product Safety & Integrity",
     href: "/product-solutions",
-    copy: "365 Health Logistics helps clients navigate risks like temperature fluctuations and shipment delays. Mandated by the DSCSA, trade partners must provide drug-tracing information to the FDA when taking ownership of medications.",
+    icon: "/images/protection.png",
+    copy: "365 Health Logistics helps clients navigate risks like temperature fluctuations and shipment delays. Mandated by the DSCSA, trade partners must provide drug-tracing information to the FDA when taking ownership of medications. This assists in investigating counterfeit pharmaceuticals.",
   },
   {
     name: "Warehousing & Fulfillment",
     href: "/warehouse",
+    icon: null,
     copy: "A coveted CA Board of Pharmacy wholesale license positions us as a one-stop shop — from product management to fulfillment and warehousing.",
+  },
+] as const;
+
+// The Services page's own "What We Offer" — a second, simpler trio of
+// photo cards distinct from the `services` teaser above.
+export const serviceCategories = [
+  { name: "Delivery", href: "/delivery", image: "/images/service-1.png" },
+  { name: "Warehouse", href: "/warehouse", image: "/images/service-2.jpg" },
+  {
+    name: "Products and Solutions",
+    href: "/product-solutions",
+    image: "/images/service-3.jpg",
   },
 ] as const;

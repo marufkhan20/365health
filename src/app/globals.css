@@ -15,8 +15,8 @@
   --color-brand-deep: var(--brand-deep);
   --color-brand-deep-foreground: var(--brand-deep-foreground);
   --color-brand-tint: var(--brand-tint);
-  --color-thermal: var(--thermal);
-  --color-thermal-foreground: var(--thermal-foreground);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-foreground: var(--brand-accent-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -56,88 +56,89 @@
 }
 
 :root {
-  /* --- 365 Health cold-chain palette --- */
-  --background: #F3F5F3;
-  --foreground: #101913;
+  /* --- 365 Health palette, sampled from the real logo (navy + azure blue,
+     cyan gradient tail on the pin mark) --- */
+  --background: #F4F6FA;
+  --foreground: #12192E;
   --card: #FFFFFF;
-  --card-foreground: #101913;
+  --card-foreground: #12192E;
   --popover: #FFFFFF;
-  --popover-foreground: #101913;
-  --primary: #1E6B45;
-  --primary-foreground: #F4FAF6;
-  --secondary: #E3EFE8;
-  --secondary-foreground: #0F3B26;
-  --muted: #E7EAE7;
-  --muted-foreground: #45524B;
-  --accent: #E3EFE8;
-  --accent-foreground: #0F3B26;
-  --destructive: #B23B3B;
-  --border: #D7DDD8;
-  --input: #D7DDD8;
-  --ring: #1E6B45;
-  --chart-1: #1E6B45;
-  --chart-2: #48A374;
-  --chart-3: #C4691F;
-  --chart-4: #75827A;
-  --chart-5: #0F3B26;
+  --popover-foreground: #12192E;
+  --primary: #0A5FE0;
+  --primary-foreground: #F5F9FF;
+  --secondary: #E6EEFC;
+  --secondary-foreground: #1D2A4F;
+  --muted: #EDF0F5;
+  --muted-foreground: #4B5568;
+  --accent: #E6EEFC;
+  --accent-foreground: #1D2A4F;
+  --destructive: #C0392B;
+  --border: #DBE2ED;
+  --input: #DBE2ED;
+  --ring: #0A5FE0;
+  --chart-1: #0A5FE0;
+  --chart-2: #4C9AFF;
+  --chart-3: #0089AE;
+  --chart-4: #6B7280;
+  --chart-5: #1D2A4F;
   --radius: 0.25rem;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #101913;
-  --sidebar-primary: #1E6B45;
-  --sidebar-primary-foreground: #F4FAF6;
-  --sidebar-accent: #E3EFE8;
-  --sidebar-accent-foreground: #0F3B26;
-  --sidebar-border: #D7DDD8;
-  --sidebar-ring: #1E6B45;
+  --sidebar-foreground: #12192E;
+  --sidebar-primary: #0A5FE0;
+  --sidebar-primary-foreground: #F5F9FF;
+  --sidebar-accent: #E6EEFC;
+  --sidebar-accent-foreground: #1D2A4F;
+  --sidebar-border: #DBE2ED;
+  --sidebar-ring: #0A5FE0;
 
   /* brand-specific extras, used directly in custom components */
-  --brand: #1E6B45;
-  --brand-deep: #0F3B26;
-  --brand-deep-foreground: #F4FAF6;
-  --brand-tint: #E3EFE8;
-  --thermal: #C4691F;
-  --thermal-foreground: #FBF3EC;
+  --brand: #0A5FE0;
+  --brand-deep: #1D2A4F;
+  --brand-deep-foreground: #F4F8FF;
+  --brand-tint: #E6EEFC;
+  --brand-accent: #0089AE;
+  --brand-accent-foreground: #F4FBFF;
 }
 
 .dark {
-  --background: #0B1310;
-  --foreground: #ECF2EE;
-  --card: #101915;
-  --card-foreground: #ECF2EE;
-  --popover: #101915;
-  --popover-foreground: #ECF2EE;
-  --primary: #48A374;
-  --primary-foreground: #08130D;
-  --secondary: #16261D;
-  --secondary-foreground: #ECF2EE;
-  --muted: #142019;
-  --muted-foreground: #A9B8AE;
-  --accent: #16261D;
-  --accent-foreground: #ECF2EE;
+  --background: #0A0E18;
+  --foreground: #ECF1FA;
+  --card: #121A2C;
+  --card-foreground: #ECF1FA;
+  --popover: #121A2C;
+  --popover-foreground: #ECF1FA;
+  --primary: #4C9AFF;
+  --primary-foreground: #0A1A33;
+  --secondary: #16213A;
+  --secondary-foreground: #ECF1FA;
+  --muted: #141B2C;
+  --muted-foreground: #93A0BE;
+  --accent: #16213A;
+  --accent-foreground: #ECF1FA;
   --destructive: #E08080;
-  --border: #223028;
-  --input: #223028;
-  --ring: #48A374;
-  --chart-1: #48A374;
-  --chart-2: #1E6B45;
-  --chart-3: #E08A45;
-  --chart-4: #A9B8AE;
-  --chart-5: #16261D;
-  --sidebar: #101915;
-  --sidebar-foreground: #ECF2EE;
-  --sidebar-primary: #48A374;
-  --sidebar-primary-foreground: #08130D;
-  --sidebar-accent: #16261D;
-  --sidebar-accent-foreground: #ECF2EE;
-  --sidebar-border: #223028;
-  --sidebar-ring: #48A374;
+  --border: #223047;
+  --input: #223047;
+  --ring: #4C9AFF;
+  --chart-1: #4C9AFF;
+  --chart-2: #0A5FE0;
+  --chart-3: #22B8E0;
+  --chart-4: #93A0BE;
+  --chart-5: #16213A;
+  --sidebar: #121A2C;
+  --sidebar-foreground: #ECF1FA;
+  --sidebar-primary: #4C9AFF;
+  --sidebar-primary-foreground: #0A1A33;
+  --sidebar-accent: #16213A;
+  --sidebar-accent-foreground: #ECF1FA;
+  --sidebar-border: #223047;
+  --sidebar-ring: #4C9AFF;
 
-  --brand: #48A374;
-  --brand-deep: #0F3B26;
-  --brand-deep-foreground: #F4FAF6;
-  --brand-tint: #16261D;
-  --thermal: #E08A45;
-  --thermal-foreground: #1C1006;
+  --brand: #4C9AFF;
+  --brand-deep: #1D2A4F;
+  --brand-deep-foreground: #F4F8FF;
+  --brand-tint: #16213A;
+  --brand-accent: #22B8E0;
+  --brand-accent-foreground: #062028;
 }
 
 @layer base {
@@ -163,5 +164,24 @@
   }
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-play-state: paused;
   }
 }
