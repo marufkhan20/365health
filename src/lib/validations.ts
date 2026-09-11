@@ -5,8 +5,11 @@ export const contactSchema = z.object({
   email: z.email("Enter a valid email"),
   mobile: z.string().trim().min(7, "Enter a valid phone number"),
   message: z.string().trim().min(10, "Tell us a bit more (10+ characters)"),
-  // honeypot — real users never fill this in
-  company_website: z.string().max(0).optional().or(z.literal("")),
+  // honeypot — real users never fill this in. Must always pass validation
+  // (no length limit) so a bot that fills it gets a generic "success"
+  // response from the action below instead of a field-specific validation
+  // error that would give away which field is the trap.
+  company_website: z.string().optional(),
 });
 
 export const quoteServices = [
