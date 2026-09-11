@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { AdvancedTechSection } from "@/components/advanced-tech-section";
+import { FadeIn } from "@/components/fade-in";
 import { PageHero } from "@/components/page-hero";
 import { QuoteForm } from "@/components/quote-form";
-import { CredentialBand } from "@/components/credential-band";
 
 export const metadata: Metadata = {
   title: "Request a Quote",
@@ -14,29 +15,29 @@ export default function RequestQuotePage() {
     <>
       <PageHero
         eyebrow="Request a Quote"
-        title="Fill out the form below to request a quote"
+        title="Request a Quote"
         crumb="Request a Quote"
+        image="/images/request-quote-hero.jpg"
       />
 
-      <section>
-        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <div className="grid gap-16 sm:grid-cols-[1fr_1.2fr]">
-            <div>
-              <p className="max-w-sm text-[15px] text-muted-foreground">
-                Tell us about your shipment or storage needs and a member of our
-                team will follow up with a tailored quote — usually within one
-                business day.
-              </p>
-              <div className="mt-10">
-                <CredentialBand />
-              </div>
-            </div>
-            <div className="rounded-[2px] border border-border bg-card p-7 sm:p-9">
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+          <FadeIn>
+            <h2 className="text-center font-display text-2xl font-semibold sm:text-3xl">
+              Fill out the below form to Request a Quote
+            </h2>
+            <div className="mt-8">
               <QuoteForm />
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
+
+      <AdvancedTechSection
+        image="/images/service-1.png"
+        imageAlt="Air freight and ground fleet supporting 365 Health's logistics network"
+        bordered={false}
+      />
     </>
   );
 }

@@ -22,7 +22,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" size="lg" disabled={pending} className="w-full">
-      {pending ? "Sending…" : "Request a quote"}
+      {pending ? "Sending…" : "Request a Quote"}
     </Button>
   );
 }
@@ -40,7 +40,7 @@ export function QuoteForm() {
   }
 
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-5">
       <input
         type="text"
         name="company_website"
@@ -51,25 +51,33 @@ export function QuoteForm() {
       />
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="quote-name">Name</FieldLabel>
-          <Input id="quote-name" name="name" placeholder="Jane Rivera" required />
+          <FieldLabel htmlFor="quote-name" className="sr-only">
+            Name
+          </FieldLabel>
+          <Input id="quote-name" name="name" placeholder="Name" required />
           <FieldError>{state.errors?.name}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="quote-email">Email</FieldLabel>
-          <Input id="quote-email" name="email" type="email" placeholder="jane@company.com" required />
+          <FieldLabel htmlFor="quote-email" className="sr-only">
+            Email
+          </FieldLabel>
+          <Input id="quote-email" name="email" type="email" placeholder="Email" required />
           <FieldError>{state.errors?.email}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="quote-mobile">Mobile</FieldLabel>
-          <Input id="quote-mobile" name="mobile" type="tel" placeholder="(555) 010-0199" required />
+          <FieldLabel htmlFor="quote-mobile" className="sr-only">
+            Mobile Number
+          </FieldLabel>
+          <Input id="quote-mobile" name="mobile" type="tel" placeholder="Mobile Number" required />
           <FieldError>{state.errors?.mobile}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="quote-service">Service</FieldLabel>
+          <FieldLabel htmlFor="quote-service" className="sr-only">
+            Service
+          </FieldLabel>
           <Select name="service">
             <SelectTrigger id="quote-service" className="w-full">
-              <SelectValue placeholder="Select a service" />
+              <SelectValue placeholder="Select Service" />
             </SelectTrigger>
             <SelectContent>
               {quoteServices.map((s) => (
@@ -82,14 +90,10 @@ export function QuoteForm() {
           <FieldError>{state.errors?.service}</FieldError>
         </Field>
         <Field>
-          <FieldLabel htmlFor="quote-message">Message</FieldLabel>
-          <Textarea
-            id="quote-message"
-            name="message"
-            rows={5}
-            placeholder="Shipment volume, temperature range, pickup/delivery windows…"
-            required
-          />
+          <FieldLabel htmlFor="quote-message" className="sr-only">
+            Message
+          </FieldLabel>
+          <Textarea id="quote-message" name="message" rows={5} placeholder="Message" required />
           <FieldError>{state.errors?.message}</FieldError>
         </Field>
       </FieldGroup>
