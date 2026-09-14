@@ -32,12 +32,11 @@ export async function submitContact(
   }
 
   const { name, email, mobile, message } = parsed.data;
-  await sendLeadEmail(`New contact form submission from ${name}`, {
-    Name: name,
-    Email: email,
-    Mobile: mobile,
-    Message: message,
-  });
+  await sendLeadEmail(
+    `New contact form submission from ${name}`,
+    { Name: name, Email: email, Mobile: mobile, Message: message },
+    { replyTo: email },
+  );
 
   return { status: "success", message: "Thanks — we'll be in touch shortly." };
 }
@@ -56,13 +55,11 @@ export async function submitQuote(
   }
 
   const { name, email, mobile, service, message } = parsed.data;
-  await sendLeadEmail(`New quote request from ${name} (${service})`, {
-    Name: name,
-    Email: email,
-    Mobile: mobile,
-    Service: service,
-    Message: message,
-  });
+  await sendLeadEmail(
+    `New quote request from ${name} (${service})`,
+    { Name: name, Email: email, Mobile: mobile, Service: service, Message: message },
+    { replyTo: email },
+  );
 
   return { status: "success", message: "Thanks — a member of our team will follow up." };
 }
@@ -81,12 +78,11 @@ export async function submitQuickMessage(
   }
 
   const { name, email, company, message } = parsed.data;
-  await sendLeadEmail(`New quick message from ${name} (${company})`, {
-    Name: name,
-    Email: email,
-    Company: company,
-    Message: message,
-  });
+  await sendLeadEmail(
+    `New quick message from ${name} (${company})`,
+    { Name: name, Email: email, Company: company, Message: message },
+    { replyTo: email },
+  );
 
   return { status: "success", message: "Thanks — we'll be in touch shortly." };
 }

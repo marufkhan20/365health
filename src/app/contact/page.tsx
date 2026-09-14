@@ -76,14 +76,18 @@ export default async function ContactPage() {
               {/* Free Maps embed — swap for the Maps Embed API + key in
                   production for reliability (this form can flash blank on
                   first paint in some regions/browsers without a key). */}
-              <div className="mt-10 aspect-[4/3] overflow-hidden rounded-[2px] border border-border bg-muted">
-                <iframe
-                  title="365 Health Logistics location"
-                  src="https://www.google.com/maps?q=21822+Lassen+Street+Suite+A+Chatsworth+CA+91311&output=embed"
-                  className="h-full w-full"
-                  loading="lazy"
-                />
-              </div>
+              {settings?.address?.line1 ? (
+                <div className="mt-10 aspect-[4/3] overflow-hidden rounded-[2px] border border-border bg-muted">
+                  <iframe
+                    title="365 Health Logistics location"
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(
+                      [settings.address.line1, settings.address.line2].filter(Boolean).join(" "),
+                    )}&output=embed`}
+                    className="h-full w-full"
+                    loading="lazy"
+                  />
+                </div>
+              ) : null}
             </FadeIn>
           </div>
         </div>

@@ -36,7 +36,7 @@ export default async function RequestQuotePage() {
               {page.formHeading}
             </h2>
             <div className="mt-8">
-              <QuoteForm />
+              <QuoteForm services={page.serviceOptions ?? []} />
             </div>
           </FadeIn>
         </div>

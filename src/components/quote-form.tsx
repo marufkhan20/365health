@@ -5,7 +5,6 @@ import { useFormStatus } from "react-dom";
 import { CheckCircle2 } from "lucide-react";
 import { submitQuote } from "@/app/actions";
 import { initialFormState } from "@/lib/validations";
-import { quoteServices } from "@/lib/validations";
 import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,7 +26,7 @@ function SubmitButton() {
   );
 }
 
-export function QuoteForm() {
+export function QuoteForm({ services }: { services: string[] }) {
   const [state, formAction] = useActionState(submitQuote, initialFormState);
 
   if (state.status === "success") {
@@ -80,7 +79,7 @@ export function QuoteForm() {
               <SelectValue placeholder="Select Service" />
             </SelectTrigger>
             <SelectContent>
-              {quoteServices.map((s) => (
+              {services.map((s) => (
                 <SelectItem key={s} value={s}>
                   {s}
                 </SelectItem>

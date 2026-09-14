@@ -12,17 +12,12 @@ export const contactSchema = z.object({
   company_website: z.string().optional(),
 });
 
-export const quoteServices = [
-  "Delivery",
-  "Warehouse",
-  "Product Solutions",
-  "Flexible Gel Packs",
-] as const;
-
+// The dropdown options themselves are CMS-driven (requestQuotePage.serviceOptions
+// in Sanity), so this just checks a value was picked, not against a fixed list.
 export const quoteSchema = contactSchema
   .omit({ message: true })
   .extend({
-    service: z.enum(quoteServices, { message: "Select a service" }),
+    service: z.string().trim().min(1, "Select a service"),
     message: z.string().trim().min(10, "Tell us a bit more (10+ characters)"),
   });
 

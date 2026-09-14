@@ -1,14 +1,24 @@
 import type { MetadataRoute } from "next";
-import { navItems } from "@/lib/content";
 
 const BASE_URL = "https://365health.global";
 
+// These map 1:1 to the route files under src/app — adding a page means
+// adding a route file, so this list only ever changes alongside a deploy
+// anyway. Not CMS content, so it isn't Sanity-sourced.
+const ROUTES = [
+  "/",
+  "/about",
+  "/services",
+  "/delivery",
+  "/warehouse",
+  "/product-solutions",
+  "/flexible-hot-cold-gel-packs",
+  "/contact",
+  "/request-a-quote",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const navRoutes = navItems.flatMap((item) => [
-    item.href,
-    ...("children" in item ? item.children.map((c) => c.href) : []),
-  ]);
-  const routes = Array.from(new Set(["/", "/request-a-quote", ...navRoutes]));
+  const routes = Array.from(new Set(ROUTES));
 
   return routes.map((route) => ({
     url: `${BASE_URL}${route}`,
