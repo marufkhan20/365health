@@ -62,7 +62,7 @@ export function SiteHeader({ settings }: { settings: SITE_SETTINGS_QUERY_RESULT 
             width={152}
             height={50}
             priority
-            className="h-8 w-auto sm:h-9"
+            className="h-10 w-auto sm:h-12"
           />
         </Link>
 
