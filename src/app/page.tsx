@@ -7,7 +7,7 @@ import { HeroImage } from "@/components/hero-image";
 import { LinkButton } from "@/components/link-button";
 import { QuickMessageForm } from "@/components/quick-message-form";
 import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
+import { getImageDimensions, urlFor } from "@/sanity/lib/image";
 import { HOME_PAGE_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import { cn } from "cn";
 import { ArrowRight, User, Warehouse } from "lucide-react";
@@ -23,6 +23,10 @@ export default async function HomePage() {
   ]);
 
   if (!home || !settings) return null;
+
+  const whoWeAreImageDimensions = home.whoWeAreImage
+    ? getImageDimensions(home.whoWeAreImage)
+    : null;
 
   return (
     <>
@@ -154,18 +158,22 @@ export default async function HomePage() {
                 <ArrowRight className="size-3.5" />
               </LinkButton>
             </FadeIn>
-            {home.whoWeAreImage ? (
-              <FadeIn
-                delay={0.15}
-                className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-border sm:aspect-square"
-              >
-                <Image
-                  src={urlFor(home.whoWeAreImage).width(1000).url()}
-                  alt={home.whoWeAreImage.alt ?? ""}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
-                />
+            {home.whoWeAreImage && whoWeAreImageDimensions ? (
+              <FadeIn delay={0.15}>
+                <div
+                  className="relative overflow-hidden rounded-[2px] border border-border"
+                  style={{
+                    aspectRatio: `${whoWeAreImageDimensions.width} / ${whoWeAreImageDimensions.height}`,
+                  }}
+                >
+                  <Image
+                    src={urlFor(home.whoWeAreImage).width(1000).url()}
+                    alt={home.whoWeAreImage.alt ?? ""}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
               </FadeIn>
             ) : null}
           </div>
